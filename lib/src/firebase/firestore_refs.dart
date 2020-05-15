@@ -1,4 +1,4 @@
-import 'package:flutter_shared_extras/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
 typedef FirestoreRefConverter = dynamic Function(Type t, Map data, String id);
 

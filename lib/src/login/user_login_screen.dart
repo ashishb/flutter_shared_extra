@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared_extras/src/login/user_login_view.dart';
+import 'package:flutter_shared_extra/src/login/user_login_view.dart';
 
 class UserLoginScreen extends StatelessWidget {
   @override

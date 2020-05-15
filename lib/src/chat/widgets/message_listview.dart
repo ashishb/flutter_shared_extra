@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_shared_extras/flutter_shared_extra.dart';
-import 'package:flutter_shared_extras/src/chat/widgets/avatar_container.dart';
-import 'package:flutter_shared_extras/src/chat/widgets/message_container.dart';
+import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/chat/widgets/avatar_container.dart';
+import 'package:flutter_shared_extra/src/chat/widgets/message_container.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_shared/flutter_shared.dart';
 

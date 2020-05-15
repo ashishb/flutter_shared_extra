@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared_extras/flutter_shared_extra.dart';
-import 'package:flutter_shared_extras/src/chat/chat_admin_screen_contents.dart';
-import 'package:flutter_shared_extras/src/chat/chat_login_screen.dart';
-import 'package:flutter_shared_extras/src/chat/chat_screen_contents.dart';
+import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/chat/chat_admin_screen_contents.dart';
+import 'package:flutter_shared_extra/src/chat/chat_login_screen.dart';
+import 'package:flutter_shared_extra/src/chat/chat_screen_contents.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {

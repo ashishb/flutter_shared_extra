@@ -1,7 +1,7 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
-import 'package:flutter_shared_extras/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_shared/flutter_shared.dart';
 

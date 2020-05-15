@@ -1,8 +1,8 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared.dart';
-import 'package:flutter_shared_extras/flutter_shared_extra.dart';
-import 'package:flutter_shared_extras/src/chat/chat_screen_contents.dart';
+import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/chat/chat_screen_contents.dart';
 
 class ChatAdminScreenContents extends StatefulWidget {
   const ChatAdminScreenContents({

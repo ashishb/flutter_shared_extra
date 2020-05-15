@@ -1,8 +1,8 @@
 {
   "workbench.colorCustomizations": {
-    "activityBar.background": "#7209a0",
-    "titleBar.inactiveBackground": "#7209a0",
-    "titleBar.activeBackground": "#7209a0"
+    "activityBar.background": "#024900",
+    "titleBar.inactiveBackground": "#024900",
+    "titleBar.activeBackground": "#024900"
   },
   "dart.previewNewCompletionPlaceholders": true,
   "workbench.editor.limit.enabled": true,

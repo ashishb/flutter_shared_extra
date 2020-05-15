@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared.dart';
-import 'package:flutter_shared_extras/flutter_shared_extra.dart';
-import 'package:flutter_shared_extras/src/login/login_email.dart';
-import 'package:flutter_shared_extras/src/login/login_phone.dart';
+import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/login/login_email.dart';
+import 'package:flutter_shared_extra/src/login/login_phone.dart';
 
 class UserLoginButton extends StatefulWidget {
   const UserLoginButton(

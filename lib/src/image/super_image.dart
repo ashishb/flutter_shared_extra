@@ -1,7 +1,7 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared.dart';
-import 'package:flutter_shared_extras/src/image/image_viewer.dart';
+import 'package:flutter_shared_extra/src/image/image_viewer.dart';
 
 class SuperImage extends StatelessWidget {
   const SuperImage(
