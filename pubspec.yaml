@@ -1,0 +1,56 @@
+name: flutter_shared_extras
+description: A new Flutter package project.
+version: 1.0.1
+author:
+homepage: distantfutu.re
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_parsed_text: ^1.2.4
+  package_info: ^0.4.0+18
+  url_launcher: ^5.4.7
+  email_validator: ^1.0.4
+  hive: ^1.4.1+1
+  hive_flutter: ^0.3.0+2
+  flutter_icons: ^1.1.0
+  fluttertoast: ^4.0.1
+  intl: ^0.16.1
+  native_pdf_renderer: ^2.1.1
+  mime_type: ^0.3.0
+  flutter_svg: ^0.17.4
+  http: ^0.12.1
+  firebase_auth: ^0.16.0
+  cloud_firestore: ^0.13.5
+  stream_transform: ^1.2.0
+  google_sign_in: ^4.4.6
+  provider: ^4.1.2
+  cloud_functions: ^0.5.0
+  flutter_keyboard_visibility: ^2.0.0
+  firebase_storage: ^3.1.5
+  image_picker: ^0.6.6+1
+  bubble: ^1.1.9+1
+  extended_image: ^0.7.3+1
+  random_string: ^2.0.1
+  intl_phone_number_input: ^0.4.1
+  image: ^2.1.12
+
+  flutter_shared:
+    # git: git://github.com/sgehrman/flutter_shared
+    git: ssh://git@github.com/sgehrman/flutter_shared
+
+dependency_overrides:
+  dartx: ^0.3.0
+  path: ^1.7.0
+
+dev_dependencies:
+  lint: ^1.2.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
