@@ -54,7 +54,7 @@ class _UploadDialogState extends State<UploadDialog> {
           right: 0,
           top: 0,
           child: IconButton(
-            icon: Icon(Icons.photo_camera),
+            icon: const Icon(Icons.photo_camera),
             onPressed: () async {
               await _getImage(ImageSource.camera);
             },
@@ -64,7 +64,7 @@ class _UploadDialogState extends State<UploadDialog> {
           right: 0,
           bottom: 0,
           child: IconButton(
-            icon: Icon(Icons.photo),
+            icon: const Icon(Icons.photo),
             onPressed: () async {
               await _getImage(ImageSource.gallery);
             },
@@ -149,7 +149,7 @@ class _UploadDialogState extends State<UploadDialog> {
                 decoration: InputDecoration(
                     labelText: 'Image URL',
                     suffixIcon: IconButton(
-                        icon: Icon(Icons.cloud_download),
+                        icon: const Icon(Icons.cloud_download),
                         onPressed: () {
                           _formKey.currentState.save();
 
@@ -198,7 +198,7 @@ class _UploadDialogState extends State<UploadDialog> {
         ColoredButton(
           color: Colors.green,
           title: 'Upload',
-          icon: Icon(Icons.cloud_upload, size: 16),
+          icon: const Icon(Icons.cloud_upload, size: 16),
           onPressed: () async {
             if (_formKey.currentState.validate()) {
               _formKey.currentState.save();

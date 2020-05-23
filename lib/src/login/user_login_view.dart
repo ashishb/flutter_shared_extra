@@ -26,25 +26,25 @@ class UserLoginViewState extends State<UserLoginView> {
     return IntrinsicWidth(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: const <Widget>[
           UserLoginButton(
             text: 'Login with Email',
             icon: Icons.email,
             type: 'email',
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           UserLoginButton(
             text: 'Login with Phone',
             icon: Icons.phone,
             type: 'phone',
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           UserLoginButton(
             text: 'Login with Google',
             icon: FontAwesome5Brands.google,
             type: 'google',
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           UserLoginButton(
             text: 'Anonymous Login ',
             icon: Icons.person,

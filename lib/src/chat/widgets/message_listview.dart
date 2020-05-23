@@ -145,7 +145,7 @@ class _MessageListViewState extends State<MessageListView> {
                                       ),
                                     ),
                                     child: ListTile(
-                                      leading: Icon(Icons.content_copy),
+                                      leading: const Icon(Icons.content_copy),
                                       title: const Text('Copy to clipboard'),
                                       onTap: () {
                                         Clipboard.setData(ClipboardData(

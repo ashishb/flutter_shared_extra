@@ -48,7 +48,7 @@ class _ImageDeleteDialogState extends State<ImageDeleteDialog> {
         ColoredButton(
           color: Colors.red,
           title: 'Delete',
-          icon: Icon(Icons.remove_circle, size: 16),
+          icon: const Icon(Icons.remove_circle, size: 16),
           onPressed: () async {
             final bool success = await _deleteImage(context);
             if (success) {

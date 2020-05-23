@@ -110,7 +110,7 @@ class _LoginDialogState extends State<LoginDialog> {
                 onFieldSubmitted: (term) {
                   _fieldFocusChange(context, _emailFocus, _passwordFocus);
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   icon: Icon(Icons.email),
                   hintText: 'Email Address',
                 ),
@@ -138,7 +138,7 @@ class _LoginDialogState extends State<LoginDialog> {
                 onFieldSubmitted: (s) => _doSubmit(),
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  icon: Icon(Icons.lock),
+                  icon: const Icon(Icons.lock),
                   suffixIcon: IconButton(
                     icon: Icon(
                         _obscureText ? Icons.visibility_off : Icons.visibility),
@@ -194,7 +194,7 @@ class _LoginDialogState extends State<LoginDialog> {
         ColoredButton(
           color: Colors.green,
           title: 'Login',
-          icon: Icon(Icons.lock_open, size: 16),
+          icon: const Icon(Icons.lock_open, size: 16),
           onPressed: _doSubmit,
         ),
       ],

@@ -26,7 +26,7 @@ class _ChatAdminScreenContentsState extends State<ChatAdminScreenContents> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Chat Admin')),
+      appBar: AppBar(title: const Text('Chat Admin')),
       body: StreamBuilder<dynamic>(
         stream: stream,
         builder: (BuildContext context, AsyncSnapshot snap) {
@@ -73,7 +73,7 @@ class _ChatAdminScreenContentsState extends State<ChatAdminScreenContents> {
                     );
                   },
                   trailing: IconButton(
-                    icon: Icon(Icons.remove_circle, color: Colors.red),
+                    icon: const Icon(Icons.remove_circle, color: Colors.red),
                     onPressed: () {
                       final deleteStream = ChatMessageUtils.stream(
                         where: [

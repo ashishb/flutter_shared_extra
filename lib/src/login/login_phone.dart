@@ -105,7 +105,7 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
         ColoredButton(
           color: Colors.green,
           title: 'Login',
-          icon: Icon(Icons.lock_open, size: 16),
+          icon: const Icon(Icons.lock_open, size: 16),
           disabled: !phoneValid,
           onPressed: () async {
             if (!_phoneVerifier.hasVerificationId) {

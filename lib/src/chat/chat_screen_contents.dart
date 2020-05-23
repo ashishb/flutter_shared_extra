@@ -107,7 +107,7 @@ class _ChatScreenContentsState extends State<ChatScreenContents> {
 
   IconButton _scrollToBottomButton() {
     return IconButton(
-      icon: Icon(Icons.keyboard_arrow_down),
+      icon: const Icon(Icons.keyboard_arrow_down),
       onPressed: () {
         final scrollController = getScrollController;
 

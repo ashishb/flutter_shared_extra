@@ -4,7 +4,7 @@ class ChatLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Connecting')),
+      appBar: AppBar(title: const Text('Connecting')),
       body: const Center(
         child: Text('Connecting to Chat.'),
       ),
