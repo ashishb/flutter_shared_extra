@@ -12,15 +12,15 @@ dependencies:
     sdk: flutter
 
   flutter_parsed_text: ^1.2.4
-  firebase_auth: ^0.16.0
-  cloud_firestore: ^0.13.5
+  firebase_auth: ^0.16.1
+  cloud_firestore: ^0.13.6
   stream_transform: ^1.2.0
   google_sign_in: ^4.5.1
   provider: ^4.1.2
   cloud_functions: ^0.5.0
   flutter_keyboard_visibility: ^2.0.0
-  firebase_storage: ^3.1.5
-  image_picker: ^0.6.6+4
+  firebase_storage: ^3.1.6
+  image_picker: ^0.6.7
   bubble: ^1.1.9+1
   intl_phone_number_input: ^0.4.2
   image: ^2.1.13
