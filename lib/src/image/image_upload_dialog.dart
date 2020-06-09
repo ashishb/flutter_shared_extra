@@ -75,10 +75,10 @@ class _UploadDialogState extends State<UploadDialog> {
   }
 
   Future _getImage(ImageSource imageSource) async {
-    final image = await ImagePicker.pickImage(source: imageSource);
+    final image = await ImagePicker().getImage(source: imageSource);
 
     setState(() {
-      _imageFile = image;
+      _imageFile = File(image.path);
     });
   }
 

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -101,8 +100,8 @@ class _ChatInputState extends State<ChatInput> with TickerProviderStateMixin {
   }
 
   Future<void> handleImagePicker({@required bool camera}) async {
-    final File file = await ImagePicker.pickImage(
-        source: camera ? ImageSource.camera : ImageSource.gallery);
+    final PickedFile file = await ImagePicker()
+        .getImage(source: camera ? ImageSource.camera : ImageSource.gallery);
 
     if (file != null) {
       final Uint8List imageData = await file.readAsBytes();
