@@ -176,7 +176,7 @@ class _ChatScreenContentsState extends State<ChatScreenContents> {
                       name: widget.name,
                     ),
                     text:
-                        'Hi, send us a message if you need help, find a bug or have a suggestion.'),
+                        'Hi, this is a community chat open to members.  Discuss whatever you like.'),
               ];
             }
 
