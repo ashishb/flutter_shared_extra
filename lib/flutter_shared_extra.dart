@@ -15,3 +15,4 @@ export 'src/image/image_url_model.dart';
 
 export 'src/login/phone_verifier.dart';
 export 'src/login/user_login_screen.dart';
+export 'src/login/user_login_view.dart';
