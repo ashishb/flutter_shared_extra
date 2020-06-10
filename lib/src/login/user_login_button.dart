@@ -30,7 +30,14 @@ class _UserLoginButtonState extends State<UserLoginButton> {
       final FirebaseUser user = result.user;
 
       if (user != null) {
-        // save in prefs, let the caller deal with it.
+        // save in prefs.
+        if (Utils.isNotEmpty(user.email)) {
+          Preferences.loginEmail = user.email;
+        }
+
+        if (Utils.isNotEmpty(user.phoneNumber)) {
+          Preferences.loginPhone = user.phoneNumber;
+        }
       }
     }
   }

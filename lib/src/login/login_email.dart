@@ -32,10 +32,9 @@ class _LoginDialogState extends State<LoginDialog> {
   void initState() {
     super.initState();
 
-    // SNG _initialValue =
-    //     Utils.debugBuild ? 'test@user.org' : Preferences().getLoginEmail();
+    _initialValue = Utils.debugBuild ? 'test@user.org' : Preferences.loginEmail;
 
-    // _initialPassword = Utils.debugBuild ? 'password' : '';
+    _initialPassword = Utils.debugBuild ? 'password' : '';
   }
 
   void _doSubmit() {

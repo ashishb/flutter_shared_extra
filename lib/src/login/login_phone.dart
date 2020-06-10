@@ -12,12 +12,15 @@ class LoginPhoneDialog extends StatefulWidget {
 class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
   final PhoneVerifyier _phoneVerifier = PhoneVerifyier();
   final TextEditingController _smsCodeController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  TextEditingController _phoneController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
+
+    _phoneController = TextEditingController();
+    _phoneController.text = Preferences.loginPhone;
   }
 
   @override
