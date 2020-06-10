@@ -110,8 +110,6 @@ class _ChatInputState extends State<ChatInput> with TickerProviderStateMixin {
 
         final url = await ImageUrlUtils.uploadImageDataReturnUrl(
             imageId, imageData,
-            saveAsJpg: true,
-            maxWidth: 1024,
             folder: ImageUrlUtils.chatImageFolder);
 
         final ChatMessage message = ChatMessage(

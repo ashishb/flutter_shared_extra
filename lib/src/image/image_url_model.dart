@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_shared/flutter_shared.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
-import 'package:image/image.dart';
+import 'package:image/image.dart' as img;
 
 class ImageUrl extends Serializable {
   ImageUrl({this.name, this.id, this.url});
@@ -99,19 +99,19 @@ class ImageUrlUtils {
         .ref()
         .child(folder != null ? '$folder/$imageName' : imageName);
 
-    Image image = decodeImage(imageData);
+    img.Image image = img.decodeImage(imageData);
 
     // shrink image
     if (image.width > maxWidth) {
-      image = copyResize(image, width: maxWidth);
+      image = img.copyResize(image, width: maxWidth);
     }
 
     List<int> data;
     if (saveAsJpg) {
-      data = encodeJpg(image, quality: 70);
+      data = img.encodeJpg(image, quality: 70);
     } else {
       // png can be large, use jpg unless you need transparency
-      data = encodePng(image, level: 7);
+      data = img.encodePng(image, level: 7);
     }
 
     final StorageUploadTask uploadTask =
