@@ -6,12 +6,9 @@ import 'package:flutter_shared_extra/src/login/login_email.dart';
 import 'package:flutter_shared_extra/src/login/login_phone.dart';
 
 class UserLoginButton extends StatefulWidget {
-  const UserLoginButton(
-      {Key key, this.text, this.icon, this.color, this.textColor, this.type})
+  const UserLoginButton({Key key, this.text, this.icon, this.type})
       : super(key: key);
 
-  final Color color;
-  final Color textColor;
   final IconData icon;
   final String text;
   final String type;
@@ -78,13 +75,8 @@ class _UserLoginButtonState extends State<UserLoginButton> {
 
   @override
   Widget build(BuildContext context) {
-    final Color textColor = widget.textColor;
-
-    return ColoredButton(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      icon: Icon(widget.icon, color: textColor),
-      textColor: textColor,
-      color: widget.color,
+    return ThemeButton(
+      icon: Icon(widget.icon),
       onPressed: _handleOnPressed,
       title: widget.text,
     );

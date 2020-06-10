@@ -195,8 +195,7 @@ class _UploadDialogState extends State<UploadDialog> {
         const SizedBox(
           height: 20,
         ),
-        ColoredButton(
-          color: Colors.green,
+        ThemeButton(
           title: 'Upload',
           icon: const Icon(Icons.cloud_upload, size: 16),
           onPressed: () async {

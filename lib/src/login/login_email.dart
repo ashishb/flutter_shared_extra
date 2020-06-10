@@ -190,8 +190,7 @@ class _LoginDialogState extends State<LoginDialog> {
             ),
           ),
         ),
-        ColoredButton(
-          color: Colors.green,
+        ThemeButton(
           title: 'Login',
           icon: const Icon(Icons.lock_open, size: 16),
           onPressed: _doSubmit,

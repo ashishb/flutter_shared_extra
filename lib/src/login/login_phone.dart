@@ -108,8 +108,7 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
         const SizedBox(
           height: 20,
         ),
-        ColoredButton(
-          color: Colors.green,
+        ThemeButton(
           title: 'Login',
           icon: const Icon(Icons.lock_open, size: 16),
           onPressed: () async {
