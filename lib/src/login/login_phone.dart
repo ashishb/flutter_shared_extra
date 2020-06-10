@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_shared/flutter_shared.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 
 class LoginPhoneDialog extends StatefulWidget {
@@ -10,39 +10,27 @@ class LoginPhoneDialog extends StatefulWidget {
 }
 
 class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
-  bool phoneValid = false;
-  String _initialValue;
   final PhoneVerifyier _phoneVerifier = PhoneVerifyier();
-  PhoneNumber phoneNumber;
   final TextEditingController _smsCodeController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-
-    // _initialValue = Preferences().getLoginPhone();
-    if (_initialValue != null && _initialValue.isNotEmpty) {
-      // the phone control doesn't currently validate the initalValue, so just set it to true if we restored from prefs
-      phoneValid = true;
-      phoneNumber = PhoneNumber(phoneNumber: _initialValue);
-    }
   }
 
   @override
   void dispose() {
+    _phoneController.dispose();
+
     _smsCodeController.dispose();
     super.dispose();
   }
 
-  void _onInputChanged(PhoneNumber phoneNumber) {
+  void _onCountrySelected(PhoneCountryData countryData) {
     setState(() {
-      this.phoneNumber = phoneNumber;
-    });
-  }
-
-  void _onInputValidated(bool value) {
-    setState(() {
-      phoneValid = value;
+      print(countryData?.country);
     });
   }
 
@@ -51,17 +39,29 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
 
     if (!phoneVerifier.hasVerificationId) {
       return <Widget>[
-        InternationalPhoneNumberInput(
-          onInputChanged: _onInputChanged,
-          onInputValidated: _onInputValidated,
-          textFieldController: TextEditingController()..text = _initialValue,
-          hintText: '(415) 555 1234',
+        TextFormField(
+          decoration: InputDecoration(
+              border: const UnderlineInputBorder(),
+              hintText: 'Type a phone to format',
+              hintStyle: TextStyle(color: Colors.black.withOpacity(.3)),
+              errorStyle: const TextStyle(color: Colors.red)),
+          keyboardType: TextInputType.phone,
+          controller: _phoneController,
+          inputFormatters: [
+            PhoneInputFormatter(onCountrySelected: _onCountrySelected)
+          ],
+          validator: (String value) {
+            if (!isPhoneValid(value)) {
+              return 'Phone is invalid';
+            }
+            return null;
+          },
         ),
       ];
     }
 
     return <Widget>[
-      Text('A 6-digit code was sent to $phoneNumber'),
+      Text('A 6-digit code was sent to ${_phoneController.text}'),
       TextField(
         keyboardType: TextInputType.number,
         controller: _smsCodeController,
@@ -90,11 +90,14 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
           value: _phoneVerifier,
           child: Builder(
             builder: (BuildContext context) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: _children(context),
+              return Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: _children(context),
+                ),
               );
             },
           ),
@@ -106,10 +109,13 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
           color: Colors.green,
           title: 'Login',
           icon: const Icon(Icons.lock_open, size: 16),
-          disabled: !phoneValid,
           onPressed: () async {
             if (!_phoneVerifier.hasVerificationId) {
-              await _phoneVerifier.verifyPhoneNumber(phoneNumber.phoneNumber);
+              if (_formKey.currentState.validate()) {
+                print(formatAsPhoneNumber(_phoneController.text));
+
+                await _phoneVerifier.verifyPhoneNumber(_phoneController.text);
+              }
             } else {
               final SignInResult result = await AuthService().phoneSignIn(
                   _phoneVerifier.verificationId,

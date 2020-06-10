@@ -52,20 +52,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.9+1"
-  built_collection:
-    dependency: transitive
-    description:
-      name: built_collection
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.3.2"
-  built_value:
-    dependency: transitive
-    description:
-      name: built_value
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "7.1.0"
   characters:
     dependency: transitive
     description:
@@ -150,6 +136,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  device_info:
+    dependency: transitive
+    description:
+      name: device_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.2+4"
   email_validator:
     dependency: transitive
     description:
@@ -157,13 +150,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  equatable:
-    dependency: transitive
-    description:
-      name: equatable
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.0"
   extended_image:
     dependency: transitive
     description:
@@ -290,6 +276,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  flutter_multi_formatter:
+    dependency: "direct main"
+    description:
+      name: flutter_multi_formatter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.6"
   flutter_parsed_text:
     dependency: "direct main"
     description:
@@ -421,13 +414,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
-  intl_phone_number_input:
-    dependency: "direct main"
-    description:
-      name: intl_phone_number_input
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.4"
   js:
     dependency: transitive
     description:
@@ -435,13 +421,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.1+1"
-  libphonenumber:
-    dependency: transitive
-    description:
-      name: libphonenumber
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   lint:
     dependency: "direct dev"
     description:
