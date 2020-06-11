@@ -79,13 +79,14 @@ class ImageUrlUtils {
 
   // saves as JPG by default since they are smallest
   // set to false for PNG with transparency
-  static void uploadImageData(String imageName, Uint8List imageData,
-      {bool saveAsJpg = true, int maxWidth = 1024}) {
-    uploadImageDataReturnUrl(imageName, imageData,
-            saveAsJpg: saveAsJpg, maxWidth: maxWidth)
-        .then((url) {
-      ImageUrlUtils.addImage(imageName, url);
-    });
+  static Future<String> uploadImageData(String imageName, Uint8List imageData,
+      {bool saveAsJpg = true, int maxWidth = 1024}) async {
+    final String url = await uploadImageDataReturnUrl(imageName, imageData,
+        saveAsJpg: saveAsJpg, maxWidth: maxWidth);
+
+    ImageUrlUtils.addImage(imageName, url);
+
+    return url;
   }
 
   static Future<String> uploadImageDataReturnUrl(

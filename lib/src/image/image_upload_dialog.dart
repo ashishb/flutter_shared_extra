@@ -82,38 +82,42 @@ class _UploadDialogState extends State<UploadDialog> {
     });
   }
 
-  Future<bool> _uploadImage(BuildContext context, String filename) async {
+  Future<String> _uploadImage(BuildContext context, String filename) async {
     if (_imageUrl != null && _imageUrl.isNotEmpty) {
       return _uploadImageUrl(context, filename);
     } else if (_imageFile != null) {
       return _uploadFileContents(context, filename);
     }
 
-    return false;
+    return null;
   }
 
-  Future<bool> _uploadImageUrl(BuildContext context, String filename) async {
+  Future<String> _uploadImageUrl(BuildContext context, String filename) async {
     final Uint8List imageData = await getNetworkImageData(_imageUrl);
 
     if (imageData != null) {
-      ImageUrlUtils.uploadImageData(filename, imageData, saveAsJpg: _saveAsJpg);
+      final String url = await ImageUrlUtils.uploadImageData(
+          filename, imageData,
+          saveAsJpg: _saveAsJpg);
 
-      return true;
+      return url;
     }
 
-    return false;
+    return null;
   }
 
-  Future<bool> _uploadFileContents(
+  Future<String> _uploadFileContents(
       BuildContext context, String filename) async {
     final Uint8List imageData = await _imageFile.readAsBytes();
     if (imageData != null) {
-      ImageUrlUtils.uploadImageData(filename, imageData, saveAsJpg: _saveAsJpg);
+      final String url = await ImageUrlUtils.uploadImageData(
+          filename, imageData,
+          saveAsJpg: _saveAsJpg);
 
-      return true;
+      return url;
     }
 
-    return false;
+    return null;
   }
 
   @override
@@ -199,8 +203,8 @@ class _UploadDialogState extends State<UploadDialog> {
             if (_formKey.currentState.validate()) {
               _formKey.currentState.save();
 
-              final bool success = await _uploadImage(context, _data.name);
-              if (success) {
+              _data.url = await _uploadImage(context, _data.name);
+              if (Utils.isNotEmpty(_data.url)) {
                 Navigator.of(context).pop(_data);
               } else {
                 print('error on upload image');
