@@ -10,6 +10,7 @@ export 'src/firebase/firestore_refs.dart';
 export 'src/firebase/serializable.dart';
 
 export 'src/image/image_delete_dialog.dart';
+export 'src/image/image_manager.dart';
 export 'src/image/image_upload_dialog.dart';
 export 'src/image/image_url_model.dart';
 
