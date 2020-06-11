@@ -97,8 +97,6 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
                 key: _formKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: _children(context),
                 ),
               );

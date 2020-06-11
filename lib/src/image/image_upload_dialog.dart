@@ -93,8 +93,7 @@ class _UploadDialogState extends State<UploadDialog> {
   }
 
   Future<bool> _uploadImageUrl(BuildContext context, String filename) async {
-    final Uint8List imageData =
-        await getNetworkImageData(_imageUrl, useCache: true);
+    final Uint8List imageData = await getNetworkImageData(_imageUrl);
 
     if (imageData != null) {
       ImageUrlUtils.uploadImageData(filename, imageData, saveAsJpg: _saveAsJpg);
@@ -134,8 +133,6 @@ class _UploadDialogState extends State<UploadDialog> {
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               imageWell(context),
               const Padding(

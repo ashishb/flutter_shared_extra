@@ -90,8 +90,6 @@ class _LoginDialogState extends State<LoginDialog> {
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               TextFormField(
                 focusNode: _emailFocus,

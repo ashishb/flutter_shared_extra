@@ -38,7 +38,6 @@ class ChatWidgetState extends State<ChatWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         MessageListView(
           scrollController: scrollController,

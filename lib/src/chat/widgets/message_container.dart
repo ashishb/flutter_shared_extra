@@ -34,9 +34,7 @@ class MessageContainer extends StatelessWidget {
       }
 
       return Bubble(
-        color: isUser
-            ? Utils.darken(Colors.blue, .1)
-            : Utils.darken(Colors.green, .1),
+        color: isUser ? Utils.darken(Colors.blue) : Utils.darken(Colors.green),
         nip: isUser ? BubbleNip.rightBottom : BubbleNip.leftBottom,
         child: Padding(
           padding: const EdgeInsets.all(4.0),
