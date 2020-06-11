@@ -1,16 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 import 'package:flutter_shared_extra/src/login/user_login_view.dart';
+import 'package:provider/provider.dart';
 
-class UserLoginScreen extends StatelessWidget {
+class UserLoginScreen extends StatefulWidget {
   const UserLoginScreen({this.title});
 
   final String title;
 
   @override
+  _UserLoginScreenState createState() => _UserLoginScreenState();
+}
+
+class _UserLoginScreenState extends State<UserLoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // remove window once logged in
+    final userProvider = Provider.of<FirebaseUserProvider>(context);
+    if (userProvider.hasUser) {
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (mounted) {
+          Navigator.pop(context);
+        }
+      });
+    }
+
     return Scaffold(
       // without the app bar, the status bar text was white on white
-      appBar: AppBar(title: Text(title ?? '')),
+      appBar: AppBar(title: Text(widget.title ?? '')),
       body: UserLoginView(),
     );
   }
