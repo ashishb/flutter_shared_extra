@@ -27,8 +27,8 @@ dependencies:
 
   flutter_shared:
     # git: git://github.com/sgehrman/flutter_shared
-    # git: ssh://git@github.com/sgehrman/flutter_shared
-    path: ../flutter_shared
+    git: ssh://git@github.com/sgehrman/flutter_shared
+    # path: ../flutter_shared
 
 dev_dependencies:
   lint: ^1.2.0
