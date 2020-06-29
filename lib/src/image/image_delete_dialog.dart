@@ -13,8 +13,11 @@ class ImageDeleteDialog extends StatefulWidget {
 
 class _ImageDeleteDialogState extends State<ImageDeleteDialog> {
   Widget imageWell(BuildContext context) {
-    return SuperImage(widget.imageUrl.url,
-        fit: BoxFit.contain, enableViewer: true);
+    return SuperImage(
+      SuperImageSource(url: widget.imageUrl.url),
+      fit: BoxFit.contain,
+      enableViewer: true,
+    );
   }
 
   Future<bool> _deleteImage(BuildContext context) async {

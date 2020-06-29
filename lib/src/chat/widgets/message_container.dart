@@ -77,7 +77,7 @@ class MessageContainer extends StatelessWidget {
             bubble(),
             if (message.image != null)
               SuperImage(
-                message.image,
+                SuperImageSource(url: message.image),
                 width: MediaQuery.of(context).size.width * 0.7,
                 fit: BoxFit.contain,
                 enableViewer: true,

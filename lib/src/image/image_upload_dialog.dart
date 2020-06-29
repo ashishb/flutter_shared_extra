@@ -33,7 +33,11 @@ class _UploadDialogState extends State<UploadDialog> {
     Widget child;
 
     if (_imageUrl != null && _imageUrl.isNotEmpty) {
-      child = SuperImage(_imageUrl, fit: BoxFit.contain, enableViewer: true);
+      child = SuperImage(
+        SuperImageSource(url: _imageUrl),
+        fit: BoxFit.contain,
+        enableViewer: true,
+      );
     } else if (_imageFile != null) {
       child = ExtendedImage.file(_imageFile, fit: BoxFit.contain);
     }

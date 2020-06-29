@@ -28,7 +28,10 @@ class ImageManagerScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 18.0),
-                child: SuperImage(imageUrls[index].url, enableViewer: true),
+                child: SuperImage(
+                  SuperImageSource(url: imageUrls[index].url),
+                  enableViewer: true,
+                ),
               ),
               Positioned(
                 top: 0,
