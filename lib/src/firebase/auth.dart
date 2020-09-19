@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +11,7 @@ class SignInResult {
   const SignInResult({this.user, this.errorString});
 
   final String errorString;
-  final FirebaseUser user;
+  final auth.User user;
 }
 
 class AuthService {
@@ -21,20 +21,20 @@ class AuthService {
   AuthService._privateConstructor();
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final Firestore _store = Firestore.instance;
+  final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
+  final FirebaseFirestore _store = FirebaseFirestore.instance;
 
   // singleton
   static final AuthService _instance = AuthService._privateConstructor();
 
-  Future<FirebaseUser> get currentUser => _auth.currentUser();
-  Stream<FirebaseUser> get userStream => _auth.onAuthStateChanged;
-  Firestore get store => _store;
-  FirebaseAuth get auth => _auth;
+  auth.User get currentUser => _auth.currentUser;
+  Stream<auth.User> get userStream => _auth.authStateChanges();
+  FirebaseFirestore get store => _store;
+  auth.FirebaseAuth get fbAuth => _auth;
 
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> emailSignIn(String email, String password) async {
-    FirebaseUser user;
+    auth.User user;
     String errorString;
 
     // you must trim the inputs, flutter is appending a tab when tab over to the password
@@ -42,7 +42,8 @@ class AuthService {
     final trimmedPassword = StrUtils.trim(password);
 
     try {
-      final AuthResult authResult = await _auth.signInWithEmailAndPassword(
+      final auth.UserCredential authResult =
+          await _auth.signInWithEmailAndPassword(
         email: trimmedEmail,
         password: trimmedPassword,
       );
@@ -78,7 +79,7 @@ class AuthService {
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> createUserWithEmail(
       String email, String password) async {
-    FirebaseUser user;
+    auth.User user;
     String errorString;
 
     // you must trim the inputs, flutter is appending a tab when tab over to the password
@@ -86,7 +87,8 @@ class AuthService {
     final trimmedPassword = StrUtils.trim(password);
 
     try {
-      final AuthResult result = await _auth.createUserWithEmailAndPassword(
+      final auth.UserCredential result =
+          await _auth.createUserWithEmailAndPassword(
         email: trimmedEmail,
         password: trimmedPassword,
       );
@@ -110,7 +112,7 @@ class AuthService {
 
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> googleSignIn() async {
-    FirebaseUser user;
+    auth.User user;
     String errorString;
 
     try {
@@ -119,12 +121,12 @@ class AuthService {
       final GoogleSignInAuthentication googleAuth =
           await googleSignInAccount.authentication;
 
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
+      final auth.AuthCredential credential = auth.GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      final AuthResult authResult =
+      final auth.UserCredential authResult =
           await _auth.signInWithCredential(credential);
       user = authResult.user;
     } on PlatformException catch (error) {
@@ -136,11 +138,11 @@ class AuthService {
 
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> anonLogin() async {
-    FirebaseUser user;
+    auth.User user;
     String errorString;
 
     try {
-      final AuthResult authResult = await _auth.signInAnonymously();
+      final auth.UserCredential authResult = await _auth.signInAnonymously();
 
       user = authResult.user;
     } on PlatformException catch (error) {
@@ -159,8 +161,8 @@ class AuthService {
     return _auth.signOut();
   }
 
-  Future<bool> isAnonymous() async {
-    final FirebaseUser user = await currentUser;
+  bool isAnonymous() {
+    final auth.User user = currentUser;
 
     if (user != null && user.uid.isNotEmpty) {
       return user.isAnonymous;
@@ -190,19 +192,19 @@ class AuthService {
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> phoneSignIn(
       String verificationId, String smsCode) async {
-    FirebaseUser user;
+    auth.User user;
     String errorString;
 
     // you must trim the inputs, flutter is appending a tab when tab over to the password
     final trimmedSmsCode = StrUtils.trim(smsCode);
 
     try {
-      final AuthCredential credential = PhoneAuthProvider.getCredential(
+      final auth.AuthCredential credential = auth.PhoneAuthProvider.credential(
         verificationId: verificationId,
         smsCode: trimmedSmsCode,
       );
 
-      final AuthResult authResult =
+      final auth.UserCredential authResult =
           await _auth.signInWithCredential(credential);
       user = authResult.user;
     } on PlatformException catch (error) {
@@ -261,12 +263,11 @@ class AuthService {
   }
 
   Future<bool> isAdmin() async {
-    final FirebaseUser user = await currentUser;
+    final auth.User user = currentUser;
 
     if (user != null) {
       try {
-        // SNG - crashes in airplane mode.  Issue on Github
-        return user.getIdToken().then((x) {
+        return user.getIdTokenResult().then((x) {
           return x.claims['admin'] == true;
         });
       } catch (error) {

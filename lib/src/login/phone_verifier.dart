@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
@@ -7,7 +7,7 @@ class PhoneVerifyier extends ChangeNotifier {
   String _verificationId;
   String _errorMessage;
 
-  final FirebaseAuth _auth = AuthService().auth;
+  final auth.FirebaseAuth _auth = AuthService().fbAuth;
 
   bool get hasVerificationId =>
       _verificationId != null && _verificationId.isNotEmpty;
@@ -16,7 +16,7 @@ class PhoneVerifyier extends ChangeNotifier {
 
   // PhoneVerificationCompleted
   Future<void> _verificationCompleted(
-      AuthCredential phoneAuthCredential) async {
+      auth.AuthCredential phoneAuthCredential) async {
     try {
       await _auth.signInWithCredential(phoneAuthCredential);
     } on PlatformException catch (error) {
@@ -40,7 +40,7 @@ class PhoneVerifyier extends ChangeNotifier {
   }
 
   // PhoneVerificationFailed
-  void _verificationFailed(AuthException authException) {
+  void _verificationFailed(auth.FirebaseAuthException authException) {
     _errorMessage =
         'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}';
 

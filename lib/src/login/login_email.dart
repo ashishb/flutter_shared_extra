@@ -94,7 +94,9 @@ class _LoginDialogState extends State<LoginDialog> {
               TextFormField(
                 focusNode: _emailFocus,
                 autocorrect: false,
-                autovalidate: _autovalidate,
+                autovalidateMode: _autovalidate
+                    ? AutovalidateMode.always
+                    : AutovalidateMode.disabled,
                 onChanged: (s) {
                   setState(() {
                     sentResetEmail = 0;
@@ -128,7 +130,9 @@ class _LoginDialogState extends State<LoginDialog> {
                 autocorrect: false,
                 textInputAction: TextInputAction.done,
                 focusNode: _passwordFocus,
-                autovalidate: _autovalidate,
+                autovalidateMode: _autovalidate
+                    ? AutovalidateMode.always
+                    : AutovalidateMode.disabled,
                 enableSuggestions: false,
                 obscureText: _obscureText,
                 initialValue: _initialPassword,

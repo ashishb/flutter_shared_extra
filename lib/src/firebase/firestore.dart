@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter_shared/flutter_shared.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
@@ -29,29 +29,29 @@ class WhereQuery {
 
 class Document<T> {
   Document({this.path}) {
-    ref = _store.document(path);
+    ref = _store.doc(path);
   }
 
-  final Firestore _store = AuthService().store;
+  final FirebaseFirestore _store = AuthService().store;
   final String path;
   DocumentReference ref;
 
-  String get documentId => ref.documentID;
+  String get documentId => ref.id;
 
   Future<T> getData() {
     return ref
         .get()
-        .then((v) => FirestoreRefs.convert(T, v.data, documentId) as T);
+        .then((v) => FirestoreRefs.convert(T, v.data(), documentId) as T);
   }
 
   Stream<T> streamData() {
     return ref
         .snapshots()
-        .map((v) => FirestoreRefs.convert(T, v.data, documentId) as T);
+        .map((v) => FirestoreRefs.convert(T, v.data(), documentId) as T);
   }
 
   Future<void> upsert(Map<String, dynamic> data) {
-    return ref.setData(data, merge: true);
+    return ref.set(data, SetOptions(merge: true));
   }
 
   Future<void> delete() {
@@ -69,20 +69,20 @@ class Collection<T> {
     ref = _store.collection(path);
   }
 
-  final Firestore _store = AuthService().store;
+  final FirebaseFirestore _store = AuthService().store;
   final String path;
   CollectionReference ref;
 
   Future<List<T>> getData() async {
-    final snapshots = await ref.getDocuments();
-    return snapshots.documents
-        .map((doc) => FirestoreRefs.convert(T, doc.data, doc.documentID) as T)
+    final snapshots = await ref.get();
+    return snapshots.docs
+        .map((doc) => FirestoreRefs.convert(T, doc.data(), doc.id) as T)
         .toList();
   }
 
   Stream<List<T>> streamData() {
-    return ref.snapshots().map((v) => v.documents
-        .map((doc) => FirestoreRefs.convert(T, doc.data, doc.documentID) as T)
+    return ref.snapshots().map((v) => v.docs
+        .map((doc) => FirestoreRefs.convert(T, doc.data(), doc.id) as T)
         .toList());
   }
 
@@ -96,8 +96,8 @@ class Collection<T> {
       for (final w in where) {
         final Query tmpQuery = w.where(query);
 
-        streams.add(tmpQuery.snapshots().map((v) => v.documents.map((doc) {
-              return FirestoreRefs.convert(T, doc.data, doc.documentID) as T;
+        streams.add(tmpQuery.snapshots().map((v) => v.docs.map((doc) {
+              return FirestoreRefs.convert(T, doc.data(), doc.id) as T;
             }).toList()));
       }
 
@@ -116,8 +116,8 @@ class Collection<T> {
 
       return stream.asBroadcastStream();
     } else {
-      return query.snapshots().map((v) => v.documents
-          .map((doc) => FirestoreRefs.convert(T, doc.data, doc.documentID) as T)
+      return query.snapshots().map((v) => v.docs
+          .map((doc) => FirestoreRefs.convert(T, doc.data(), doc.id) as T)
           .toList());
     }
   }
@@ -130,10 +130,10 @@ class Collection<T> {
   }
 
   Future<bool> delete() async {
-    final QuerySnapshot snap = await ref.getDocuments();
+    final QuerySnapshot snap = await ref.get();
 
     try {
-      final List<DocumentSnapshot> docs = snap.documents;
+      final List<DocumentSnapshot> docs = snap.docs;
 
       // can't use forEach with await
       await Future.forEach(docs, (DocumentSnapshot d) {
@@ -153,10 +153,10 @@ class UserData<T> {
   UserData({this.collection});
 
   final String collection;
-  final AuthService auth = AuthService();
+  final AuthService authService = AuthService();
 
   Stream<T> get documentStream {
-    return auth.userStream.switchMap((user) {
+    return authService.userStream.switchMap((user) {
       if (user != null) {
         final Document<T> doc = Document<T>(path: '$collection/${user.uid}');
         return doc.streamData();
@@ -167,7 +167,7 @@ class UserData<T> {
   }
 
   Future<T> getDocument() async {
-    final FirebaseUser user = await auth.currentUser;
+    final auth.User user = authService.currentUser;
 
     if (user != null && user.uid.isNotEmpty) {
       final Document<T> doc = Document<T>(path: '$collection/${user.uid}');
@@ -178,7 +178,7 @@ class UserData<T> {
   }
 
   Future<void> upsert(Map<String, dynamic> data) async {
-    final FirebaseUser user = await auth.currentUser;
+    final auth.User user = authService.currentUser;
 
     if (user != null && user.uid.isNotEmpty) {
       final Document<T> ref = Document(path: '$collection/${user.uid}');

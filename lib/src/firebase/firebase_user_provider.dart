@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
@@ -7,7 +7,7 @@ class FirebaseUserProvider extends ChangeNotifier {
     _setup();
   }
 
-  FirebaseUser _user;
+  auth.User _user;
   final AuthService _auth = AuthService();
   bool _initalized = false;
   bool _isAdmin = false;
@@ -21,7 +21,7 @@ class FirebaseUserProvider extends ChangeNotifier {
   // work around for reload
   Future<void> reload() async {
     await _user.reload();
-    _user = await _auth.currentUser;
+    _user = _auth.currentUser;
 
     notifyListeners();
   }
@@ -78,14 +78,14 @@ class FirebaseUserProvider extends ChangeNotifier {
     String result;
 
     if (_user != null) {
-      result = _user.photoUrl;
+      result = _user.photoURL;
     }
 
     return result ?? '';
   }
 
-  Future<void> updateProfile(UserUpdateInfo userInfo) async {
-    await _user.updateProfile(userInfo);
+  Future<void> updateProfile(String displayName, String photoURL) async {
+    await _user.updateProfile(displayName: displayName, photoURL: photoURL);
     await reload();
   }
 
@@ -95,9 +95,9 @@ class FirebaseUserProvider extends ChangeNotifier {
   }
 
   Future<void> _setup() async {
-    final Stream<FirebaseUser> stream = _auth.userStream;
+    final Stream<auth.User> stream = _auth.userStream;
 
-    await stream.forEach((FirebaseUser user) async {
+    await stream.forEach((auth.User user) async {
       _user = user;
 
       // this checks for user == null
