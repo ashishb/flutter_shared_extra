@@ -96,40 +96,43 @@ class ImageUrlUtils {
     int maxWidth = 1024,
     String folder,
   }) async {
-    final StorageReference firebaseStorageRef = FirebaseStorage.instance
-        .ref()
-        .child(folder != null ? '$folder/$imageName' : imageName);
+    // worked before firebase update
+    // final StorageReference firebaseStorageRef = FirebaseStorage.instance
+    //     .ref()
+    //     .child(folder != null ? '$folder/$imageName' : imageName);
 
-    img.Image image = img.decodeImage(imageData);
+    // img.Image image = img.decodeImage(imageData);
 
-    // shrink image
-    if (image.width > maxWidth) {
-      image = img.copyResize(image, width: maxWidth);
-    }
+    // // shrink image
+    // if (image.width > maxWidth) {
+    //   image = img.copyResize(image, width: maxWidth);
+    // }
 
-    List<int> data;
-    if (saveAsJpg) {
-      data = img.encodeJpg(image, quality: 70);
-    } else {
-      // png can be large, use jpg unless you need transparency
-      data = img.encodePng(image, level: 7);
-    }
+    // List<int> data;
+    // if (saveAsJpg) {
+    //   data = img.encodeJpg(image, quality: 70);
+    // } else {
+    //   // png can be large, use jpg unless you need transparency
+    //   data = img.encodePng(image, level: 7);
+    // }
 
-    final StorageUploadTask uploadTask =
-        firebaseStorageRef.putData(Uint8List.fromList(data));
+    // final StorageUploadTask uploadTask =
+    //     firebaseStorageRef.putData(Uint8List.fromList(data));
 
-    final StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-    final String url = await taskSnapshot.ref.getDownloadURL() as String;
+    // final StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+    // final String url = await taskSnapshot.ref.getDownloadURL() as String;
 
-    return url;
+    // return url;
+    return null;
   }
 
   static Future<void> deleteImageStorage(String imageId,
       [String folder]) async {
-    final StorageReference firebaseStorageRef = FirebaseStorage.instance
-        .ref()
-        .child(folder != null ? '$folder/$imageId' : imageId);
+    // worked before firebase update
+    // final StorageReference firebaseStorageRef = FirebaseStorage.instance
+    //     .ref()
+    //     .child(folder != null ? '$folder/$imageId' : imageId);
 
-    return firebaseStorageRef.delete();
+    // return firebaseStorageRef.delete();
   }
 }

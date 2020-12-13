@@ -239,22 +239,23 @@ class AuthService {
   Future<bool> modifyClaimsForEmail(
       String email, Map<String, dynamic> claims) async {
     try {
-      final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
-        functionName: 'addUserClaims',
-      );
-      final HttpsCallableResult resp = await callable.call(<String, dynamic>{
-        'email': email,
-        'claims': claims,
-      });
+      // update when needed, worked before the firebase update
+      // final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
+      //   functionName: 'addUserClaims',
+      // );
+      // final HttpsCallableResult resp = await callable.call(<String, dynamic>{
+      //   'email': email,
+      //   'claims': claims,
+      // });
 
-      if (resp != null && resp.data != null) {
-        if (resp.data['error'] != null) {
-          print(resp.data);
-          return false;
-        }
+      // if (resp != null && resp.data != null) {
+      //   if (resp.data['error'] != null) {
+      //     print(resp.data);
+      //     return false;
+      //   }
 
-        return true;
-      }
+      //   return true;
+      // }
     } catch (error) {
       print('erroor $error');
     }
