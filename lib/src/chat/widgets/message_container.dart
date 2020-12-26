@@ -75,7 +75,7 @@ class MessageContainer extends StatelessWidget {
               isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: <Widget>[
             bubble(),
-            if (message.image != null)
+            if (Utils.isNotEmpty(message.image))
               SuperImage(
                 SuperImageSource(url: message.image),
                 width: MediaQuery.of(context).size.width * 0.7,

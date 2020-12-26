@@ -38,13 +38,6 @@ packages:
       url: "git://github.com/sgehrman/dart_barcode"
     source: git
     version: "1.0.2"
-  barcode_scan:
-    dependency: transitive
-    description:
-      name: barcode_scan
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
   barcode_widget:
     dependency: transitive
     description:
@@ -271,18 +264,18 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1+1"
-  fixnum:
-    dependency: transitive
-    description:
-      name: fixnum
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.11"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_barcode_scanner:
+    dependency: transitive
+    description:
+      name: flutter_barcode_scanner
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   flutter_colorpicker:
     dependency: transitive
     description:
@@ -344,11 +337,9 @@ packages:
   flutter_shared:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: faf413c8414c9aae3956a4a70da260f1d3c699c5
-      url: "ssh://git@github.com/sgehrman/flutter_shared"
-    source: git
+      path: "../flutter_shared"
+      relative: true
+    source: path
     version: "1.0.1"
   flutter_svg:
     dependency: transitive
@@ -501,7 +492,7 @@ packages:
       name: native_pdf_renderer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.2"
+    version: "2.4.0"
   nested:
     dependency: transitive
     description:
@@ -614,13 +605,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.13"
-  protobuf:
-    dependency: transitive
-    description:
-      name: protobuf
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   provider:
     dependency: "direct main"
     description:
