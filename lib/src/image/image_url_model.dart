@@ -118,7 +118,7 @@ class ImageUrlUtils {
     final UploadTask uploadTask =
         firebaseStorageRef.putData(Uint8List.fromList(data));
 
-    final TaskSnapshot taskSnapshot = uploadTask.snapshot;
+    final taskSnapshot = await uploadTask;
     final String url = await taskSnapshot.ref.getDownloadURL();
 
     return url;
