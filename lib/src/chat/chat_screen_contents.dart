@@ -39,7 +39,8 @@ class _ChatScreenContentsState extends State<ChatScreenContents> {
 
     _subscribe();
 
-    KeyboardVisibility.onChange.listen((bool visible) {
+    final keyboardVisibilityController = KeyboardVisibilityController();
+    keyboardVisibilityController.onChange.listen((bool visible) {
       if (visible) {
         // needs a delay so it scrolls after the keyboard is up and ready
         Timer(const Duration(milliseconds: 100), () {
