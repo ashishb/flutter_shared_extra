@@ -1,11 +1,12 @@
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
-typedef FirestoreRefConverter = dynamic Function(Type t, Map data, String id);
+typedef FirestoreRefConverter = dynamic Function(
+    Type t, Map<String, dynamic> data, String id);
 
 class FirestoreRefs {
   static FirestoreRefConverter converter;
 
-  static dynamic convert(Type t, Map data, String id) {
+  static dynamic convert(Type t, Map<String, dynamic> data, String id) {
     // always adding id so we can delete by id if needed
     data['id'] = id;
 

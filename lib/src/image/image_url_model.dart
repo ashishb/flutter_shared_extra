@@ -8,7 +8,7 @@ import 'package:image/image.dart' as img;
 class ImageUrl extends Serializable {
   ImageUrl({this.name, this.id, this.url});
 
-  factory ImageUrl.fromMap(Map data) {
+  factory ImageUrl.fromMap(Map<String, dynamic> data) {
     return ImageUrl(
       id: data.strVal('id'),
       name: data.strVal('name'),
