@@ -176,10 +176,10 @@ packages:
     description:
       path: "."
       ref: dev
-      resolved-ref: "44ab13604ce147a3970a2de656773bc403397b24"
+      resolved-ref: "7cf821eac3514521ffd34621caa4175f1ee679c0"
       url: "git://github.com/fluttercandies/extended_image"
     source: git
-    version: "1.3.1-dev"
+    version: "1.5.0-dev"
   extended_image_library:
     dependency: transitive
     description:

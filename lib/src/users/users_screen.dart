@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared.dart';
-import 'package:flutter_shared_extra/src/users/user_screen.dart';
 import 'package:flutter_shared_extra/src/users/user_utils.dart';
 
 class UsersScreen extends StatelessWidget {
@@ -69,8 +68,9 @@ class UsersScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push<void>(
                       MaterialPageRoute(
-                        builder: (context) => UserScreen(
-                            userMap: Map<String, dynamic>.from(item)),
+                        builder: (context) => JsonViewerScreen(
+                            map: Map<String, dynamic>.from(item),
+                            title: 'User'),
                       ),
                     );
                   },
