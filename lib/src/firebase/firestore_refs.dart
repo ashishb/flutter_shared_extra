@@ -7,6 +7,11 @@ class FirestoreRefs {
   static FirestoreRefConverter converter;
 
   static dynamic convert(Type t, Map<String, dynamic> data, String id) {
+    // data is null if you try to get a specific object and it doesn't exist.
+    if (data == null) {
+      return null;
+    }
+
     // always adding id so we can delete by id if needed
     data['id'] = id;
 
