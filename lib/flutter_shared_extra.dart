@@ -15,5 +15,6 @@ export 'src/login/phone_verifier.dart';
 export 'src/login/user_login_screen.dart';
 export 'src/login/user_login_view.dart';
 export 'src/profile/profile_screen.dart';
+export 'src/profile/profile_widget.dart';
 export 'src/users/user_utils.dart';
 export 'src/users/users_screen.dart';
