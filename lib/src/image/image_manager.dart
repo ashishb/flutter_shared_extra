@@ -55,7 +55,7 @@ class ImageManagerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: Collection<ImageUrl>(path: 'images').streamData(),
+        stream: Collection<ImageUrl>('images').streamData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final List<ImageUrl> imageUrls = snapshot.data as List<ImageUrl>;

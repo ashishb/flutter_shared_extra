@@ -41,7 +41,7 @@ class ImageUrlUtils {
   static String get chatImageFolder => 'chat-images';
 
   static Future<void> uploadImage(ImageUrl imageUrl) async {
-    final doc = Document<ImageUrl>(path: 'images/${imageUrl.id}');
+    final doc = Document<ImageUrl>('images/${imageUrl.id}');
 
     try {
       await doc.upsert(imageUrl.toMap());
@@ -65,7 +65,7 @@ class ImageUrlUtils {
   }
 
   static Future<void> deleteImage(ImageUrl imageUrl) async {
-    final doc = Document<ImageUrl>(path: 'images/${imageUrl.id}');
+    final doc = Document<ImageUrl>('images/${imageUrl.id}');
 
     try {
       await doc.delete();

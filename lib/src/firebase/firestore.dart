@@ -28,12 +28,11 @@ class WhereQuery {
 }
 
 class Document<T> {
-  Document({this.path}) {
+  Document(String path) {
     ref = _store.doc(path);
   }
 
   final FirebaseFirestore _store = AuthService().store;
-  final String path;
   DocumentReference ref;
 
   String get documentId => ref.id;
@@ -58,19 +57,19 @@ class Document<T> {
     return ref.delete();
   }
 
-  @override
-  String toString() {
-    return 'path: $path';
+  Collection<X> subCollection<X>(String path) {
+    return Collection<X>.withRef(ref.collection(path));
   }
 }
 
 class Collection<T> {
-  Collection({this.path}) {
+  Collection(String path) {
     ref = _store.collection(path);
   }
 
+  Collection.withRef(this.ref);
+
   final FirebaseFirestore _store = AuthService().store;
-  final String path;
   CollectionReference ref;
 
   Future<List<T>> getData() async {
@@ -158,7 +157,7 @@ class UserData<T> {
   Stream<T> get documentStream {
     return authService.userStream.switchMap((user) {
       if (user != null) {
-        final Document<T> doc = Document<T>(path: '$collection/${user.uid}');
+        final Document<T> doc = Document<T>('$collection/${user.uid}');
         return doc.streamData();
       } else {
         return Stream<T>.value(null);
@@ -170,7 +169,7 @@ class UserData<T> {
     final auth.User user = authService.currentUser;
 
     if (user != null && user.uid.isNotEmpty) {
-      final Document<T> doc = Document<T>(path: '$collection/${user.uid}');
+      final Document<T> doc = Document<T>('$collection/${user.uid}');
       return doc.getData();
     } else {
       return null;
@@ -181,7 +180,7 @@ class UserData<T> {
     final auth.User user = authService.currentUser;
 
     if (user != null && user.uid.isNotEmpty) {
-      final Document<T> ref = Document(path: '$collection/${user.uid}');
+      final Document<T> ref = Document('$collection/${user.uid}');
       return ref.upsert(data);
     }
   }
