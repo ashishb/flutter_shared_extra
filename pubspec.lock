@@ -344,9 +344,11 @@ packages:
   flutter_shared:
     dependency: "direct main"
     description:
-      path: "../flutter_shared"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: e52046eda84f5be69788eba80bf999841f8682e3
+      url: "ssh://git@github.com/sgehrman/flutter_shared"
+    source: git
     version: "1.0.1"
   flutter_svg:
     dependency: transitive
@@ -640,6 +642,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  sa_v1_migration:
+    dependency: transitive
+    description:
+      name: sa_v1_migration
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
   share_extend:
     dependency: transitive
     description:
@@ -691,6 +700,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.1+3"
+  simple_animations:
+    dependency: transitive
+    description:
+      name: simple_animations
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.4.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -724,6 +740,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  supercharged:
+    dependency: transitive
+    description:
+      name: supercharged
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.12.0"
+  supercharged_dart:
+    dependency: transitive
+    description:
+      name: supercharged_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.0"
   synchronized:
     dependency: transitive
     description:
