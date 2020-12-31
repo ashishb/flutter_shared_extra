@@ -32,6 +32,8 @@ class Document<T> {
     ref = _store.doc(path);
   }
 
+  Document.withRef(this.ref);
+
   final FirebaseFirestore _store = AuthService().store;
   DocumentReference ref;
 
@@ -57,7 +59,7 @@ class Document<T> {
     return ref.delete();
   }
 
-  Collection<X> subCollection<X>(String path) {
+  Collection<X> collection<X>(String path) {
     return Collection<X>.withRef(ref.collection(path));
   }
 }
@@ -71,6 +73,10 @@ class Collection<T> {
 
   final FirebaseFirestore _store = AuthService().store;
   CollectionReference ref;
+
+  Document<T> document(String path) {
+    return Document<T>.withRef(ref.doc(path));
+  }
 
   Future<List<T>> getData() async {
     final snapshots = await ref.get();
