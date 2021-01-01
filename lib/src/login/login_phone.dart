@@ -31,12 +31,6 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
     super.dispose();
   }
 
-  void _onCountrySelected(PhoneCountryData countryData) {
-    setState(() {
-      print(countryData?.country);
-    });
-  }
-
   List<Widget> _children(BuildContext context) {
     final PhoneVerifyier phoneVerifier = Provider.of<PhoneVerifyier>(context);
 
@@ -50,15 +44,8 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
               errorStyle: const TextStyle(color: Colors.red)),
           keyboardType: TextInputType.phone,
           controller: _phoneController,
-          inputFormatters: [
-            PhoneInputFormatter(onCountrySelected: _onCountrySelected)
-          ],
-          validator: (String value) {
-            if (!isPhoneValid(value)) {
-              return 'Phone is invalid';
-            }
-            return null;
-          },
+          inputFormatters: PhoneInputUtils.inputFormatters(),
+          validator: PhoneInputUtils.validator,
         ),
       ];
     }
