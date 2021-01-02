@@ -120,10 +120,10 @@ class ChatMessageUtils {
   static Stream<List<ChatMessage>> stream({
     List<WhereQuery> where,
   }) {
-    final c = Collection<ChatMessage>('messages');
+    final c = Collection('messages');
 
     if (Utils.isNotEmpty(where)) {
-      return c.orderedStreamData(
+      return c.orderedStreamData<ChatMessage>(
         where: where,
       );
     }
@@ -132,11 +132,11 @@ class ChatMessageUtils {
   }
 
   static Future<List<ChatMessage>> getData() {
-    return Collection<ChatMessage>('messages').getData();
+    return Collection('messages').getData<ChatMessage>();
   }
 
   static Future<bool> uploadChatMessage(ChatMessage resource) async {
-    final collection = Collection<ChatMessage>('messages');
+    final collection = Collection('messages');
 
     try {
       await collection.addOrdered(resource.toMap());
@@ -150,10 +150,10 @@ class ChatMessageUtils {
   }
 
   static Future<bool> deleteChatMessage(String id) async {
-    final doc = Document<ChatMessage>('messages/$id');
+    final doc = Document('messages/$id');
 
     try {
-      final ChatMessage message = await doc.getData();
+      final ChatMessage message = await doc.getData<ChatMessage>();
       if (Utils.isNotEmpty(message.imageId)) {
         await ImageUrlUtils.deleteImageStorage(
             message.imageId, ImageUrlUtils.chatImageFolder);
@@ -190,7 +190,7 @@ class ChatMessageUtils {
       }
     });
 
-    return Collection<ChatMessage>('messages').delete();
+    return Collection('messages').delete();
   }
 
   static Future<bool> updateChatMessages(List<ChatMessage> list) async {

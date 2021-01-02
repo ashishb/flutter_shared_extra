@@ -27,7 +27,7 @@ class WhereQuery {
   }
 }
 
-class Document<T> {
+class Document {
   Document(String path) {
     ref = _store.doc(path);
   }
@@ -39,13 +39,13 @@ class Document<T> {
 
   String get documentId => ref.id;
 
-  Future<T> getData() {
+  Future<T> getData<T>() {
     return ref
         .get()
         .then((v) => FirestoreRefs.convert(T, v.data(), documentId) as T);
   }
 
-  Stream<T> streamData() {
+  Stream<T> streamData<T>() {
     return ref
         .snapshots()
         .map((v) => FirestoreRefs.convert(T, v.data(), documentId) as T);
@@ -59,12 +59,12 @@ class Document<T> {
     return ref.delete();
   }
 
-  Collection<X> collection<X>(String path) {
-    return Collection<X>.withRef(ref.collection(path));
+  Collection collection(String path) {
+    return Collection.withRef(ref.collection(path));
   }
 }
 
-class Collection<T> {
+class Collection {
   Collection(String path) {
     ref = _store.collection(path);
   }
@@ -74,25 +74,25 @@ class Collection<T> {
   final FirebaseFirestore _store = AuthService().store;
   CollectionReference ref;
 
-  Document<T> document(String path) {
-    return Document<T>.withRef(ref.doc(path));
+  Document document(String path) {
+    return Document.withRef(ref.doc(path));
   }
 
-  Future<List<T>> getData() async {
+  Future<List<T>> getData<T>() async {
     final snapshots = await ref.get();
     return snapshots.docs
         .map((doc) => FirestoreRefs.convert(T, doc.data(), doc.id) as T)
         .toList();
   }
 
-  Stream<List<T>> streamData() {
+  Stream<List<T>> streamData<T>() {
     return ref.snapshots().map((v) => v.docs
         .map((doc) => FirestoreRefs.convert(T, doc.data(), doc.id) as T)
         .toList());
   }
 
   // must use add to add the timestamp automatically
-  Stream<List<T>> orderedStreamData({List<WhereQuery> where}) {
+  Stream<List<T>> orderedStreamData<T>({List<WhereQuery> where}) {
     final Query query = ref.orderBy('timestamp');
 
     if (Utils.isNotEmpty(where)) {
@@ -154,29 +154,29 @@ class Collection<T> {
   }
 }
 
-class UserData<T> {
+class UserData {
   UserData({this.collection});
 
   final String collection;
   final AuthService authService = AuthService();
 
-  Stream<T> get documentStream {
+  Stream<T> documentStream<T>() {
     return authService.userStream.switchMap((user) {
       if (user != null) {
-        final Document<T> doc = Document<T>('$collection/${user.uid}');
-        return doc.streamData();
+        final Document doc = Document('$collection/${user.uid}');
+        return doc.streamData<T>();
       } else {
         return Stream<T>.value(null);
       }
     });
   }
 
-  Future<T> getDocument() async {
+  Future<T> getDocument<T>() async {
     final auth.User user = authService.currentUser;
 
     if (user != null && user.uid.isNotEmpty) {
-      final Document<T> doc = Document<T>('$collection/${user.uid}');
-      return doc.getData();
+      final Document doc = Document('$collection/${user.uid}');
+      return doc.getData<T>();
     } else {
       return null;
     }
@@ -186,7 +186,7 @@ class UserData<T> {
     final auth.User user = authService.currentUser;
 
     if (user != null && user.uid.isNotEmpty) {
-      final Document<T> ref = Document('$collection/${user.uid}');
+      final Document ref = Document('$collection/${user.uid}');
       return ref.upsert(data);
     }
   }
