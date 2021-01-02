@@ -16,16 +16,14 @@ class SignInResult {
 
 class AuthService {
   factory AuthService() {
-    return _instance;
+    return _instance ??= AuthService._();
   }
-  AuthService._privateConstructor();
+  AuthService._();
+  static AuthService _instance;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
   final FirebaseFirestore _store = FirebaseFirestore.instance;
-
-  // singleton
-  static final AuthService _instance = AuthService._privateConstructor();
 
   auth.User get currentUser => _auth.currentUser;
   Stream<auth.User> get userStream => _auth.authStateChanges();
