@@ -227,15 +227,23 @@ class AuthService {
   }
 
   Future<bool> addAdminClaimToEmail(String email) async {
-    return modifyClaimsForEmail(email, <String, dynamic>{'admin': true});
+    return modifyClaims(email, null, <String, dynamic>{'admin': true});
   }
 
   Future<bool> deleteClaimForEmail(String email) async {
-    return modifyClaimsForEmail(email, null);
+    return modifyClaims(email, null, null);
   }
 
-  Future<bool> modifyClaimsForEmail(
-      String email, Map<String, dynamic> claims) async {
+  Future<bool> addAdminClaimToUid(String uid) async {
+    return modifyClaims(null, uid, <String, dynamic>{'admin': true});
+  }
+
+  Future<bool> deleteClaimForUid(String uid) async {
+    return modifyClaims(null, uid, null);
+  }
+
+  Future<bool> modifyClaims(
+      String email, String uid, Map<String, dynamic> claims) async {
     try {
       final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
         'addUserClaims',
@@ -243,6 +251,7 @@ class AuthService {
       final HttpsCallableResult resp =
           await callable.call<Map>(<String, dynamic>{
         'email': email,
+        'uid': uid,
         'claims': claims,
       });
 

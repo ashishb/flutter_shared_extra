@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared.dart';
+import 'package:flutter_shared_extra/src/users/user_details_screen.dart';
 import 'package:flutter_shared_extra/src/users/user_utils.dart';
 
 class UsersScreen extends StatelessWidget {
@@ -32,6 +33,8 @@ class UsersScreen extends StatelessWidget {
                 final String email = item.strVal('email');
                 final String uid = item.strVal('uid');
                 final String photoUrl = item.strVal('photoURL');
+                final customClaims =
+                    item.mapVal<String, dynamic>('customClaims');
 
                 String title = '';
                 title += displayName.isNotEmpty ? displayName : '';
@@ -51,6 +54,7 @@ class UsersScreen extends StatelessWidget {
                       children: [
                         Text(
                             "Last Login: ${item['metadata']['lastSignInTime']}"),
+                        if (customClaims != null) Text(customClaims.toString()),
                       ],
                     ));
 
@@ -68,9 +72,9 @@ class UsersScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push<void>(
                       MaterialPageRoute(
-                        builder: (context) => JsonViewerScreen(
-                            map: Map<String, dynamic>.from(item),
-                            title: 'User'),
+                        builder: (context) => UserDetailsScreen(
+                          map: Map<String, dynamic>.from(item),
+                        ),
                       ),
                     );
                   },
