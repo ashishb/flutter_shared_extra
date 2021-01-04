@@ -48,26 +48,22 @@ class AuthService {
       );
 
       user = authResult.user;
-    } on PlatformException catch (error) {
+    } on auth.FirebaseAuthException catch (error) {
       errorString = error.message;
 
       switch (error.code) {
-        case 'ERROR_INVALID_EMAIL':
+        case 'user-disabled':
           break;
-        case 'ERROR_WRONG_PASSWORD':
+        case 'wrong-password':
           break;
-        case 'ERROR_USER_NOT_FOUND':
+        case 'invalid-email':
+          break;
+        case 'user-not-found':
           // create user if doesn't have account
           final SignInResult createRes =
               await createUserWithEmail(email, password);
           user = createRes.user;
           errorString = createRes.errorString;
-          break;
-        case 'ERROR_USER_DISABLED':
-          break;
-        case 'ERROR_TOO_MANY_REQUESTS':
-          break;
-        case 'ERROR_OPERATION_NOT_ALLOWED':
           break;
       }
     }
@@ -93,15 +89,17 @@ class AuthService {
       );
 
       user = result.user;
-    } on PlatformException catch (error) {
+    } on auth.FirebaseAuthException catch (error) {
       errorString = error.message;
 
       switch (error.code) {
-        case 'ERROR_WEAK_PASSWORD':
+        case 'email-already-in-use':
           break;
-        case 'ERROR_INVALID_EMAIL':
+        case 'invalid-email':
           break;
-        case 'ERROR_EMAIL_ALREADY_IN_USE':
+        case 'operation-not-allowed':
+          break;
+        case 'weak-password':
           break;
       }
     }
@@ -128,8 +126,29 @@ class AuthService {
       final auth.UserCredential authResult =
           await _auth.signInWithCredential(credential);
       user = authResult.user;
-    } on PlatformException catch (error) {
+    } on auth.FirebaseAuthException catch (error) {
       errorString = error.message;
+
+      switch (error.code) {
+        case 'account-exists-with-different-credential':
+          break;
+        case 'invalid-credential':
+          break;
+        case 'operation-not-allowed':
+          break;
+        case 'user-disabled':
+          break;
+        case 'user-not-found':
+          break;
+        case 'wrong-password':
+          break;
+        case 'invalid-verification-code':
+          break;
+        case 'ERROR_OPERATION_NOT_ALLOWED':
+          break;
+        case 'invalid-verification-id':
+          break;
+      }
     }
 
     return SignInResult(user: user, errorString: errorString);
@@ -144,11 +163,11 @@ class AuthService {
       final auth.UserCredential authResult = await _auth.signInAnonymously();
 
       user = authResult.user;
-    } on PlatformException catch (error) {
+    } on auth.FirebaseAuthException catch (error) {
       errorString = error.message;
 
       switch (error.code) {
-        case 'ERROR_OPERATION_NOT_ALLOWED':
+        case 'operation-not-allowed':
           break;
       }
     }
@@ -175,13 +194,13 @@ class AuthService {
       await _auth.sendPasswordResetEmail(email: email);
 
       return <String, dynamic>{'result': true, 'errorString': ''};
-    } on PlatformException catch (error) {
+    } on auth.FirebaseAuthException catch (error) {
       final String errorString = error.message;
 
       switch (error.code) {
-        case 'ERROR_INVALID_EMAIL':
+        case 'invalid-email':
           break;
-        case 'ERROR_USER_NOT_FOUND':
+        case 'user-not-found':
           break;
       }
       return <String, dynamic>{'result': false, 'errorString': errorString};
@@ -206,20 +225,25 @@ class AuthService {
       final auth.UserCredential authResult =
           await _auth.signInWithCredential(credential);
       user = authResult.user;
-    } on PlatformException catch (error) {
-      // PlatformException has code, message and details
+    } on auth.FirebaseAuthException catch (error) {
       errorString = error.message;
 
       switch (error.code) {
-        case 'ERROR_INVALID_CREDENTIAL':
+        case 'account-exists-with-different-credential':
           break;
-        case 'ERROR_USER_DISABLED':
+        case 'invalid-credential':
           break;
-        case 'ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL':
+        case 'operation-not-allowed':
           break;
-        case 'ERROR_INVALID_ACTION_CODE':
+        case 'user-disabled':
           break;
-        case 'ERROR_OPERATION_NOT_ALLOWED':
+        case 'user-not-found':
+          break;
+        case 'wrong-password':
+          break;
+        case 'invalid-verification-code':
+          break;
+        case 'invalid-verification-id':
           break;
       }
     }

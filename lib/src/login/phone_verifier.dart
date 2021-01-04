@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
 class PhoneVerifyier extends ChangeNotifier {
@@ -19,19 +18,25 @@ class PhoneVerifyier extends ChangeNotifier {
       auth.AuthCredential phoneAuthCredential) async {
     try {
       await _auth.signInWithCredential(phoneAuthCredential);
-    } on PlatformException catch (error) {
+    } on auth.FirebaseAuthException catch (error) {
       _errorMessage = error.message;
 
       switch (error.code) {
-        case 'ERROR_INVALID_CREDENTIAL':
+        case 'account-exists-with-different-credential':
           break;
-        case 'ERROR_USER_DISABLED':
+        case 'invalid-credential':
           break;
-        case 'ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL':
+        case 'operation-not-allowed':
           break;
-        case 'ERROR_INVALID_ACTION_CODE':
+        case 'user-disabled':
           break;
-        case 'ERROR_OPERATION_NOT_ALLOWED':
+        case 'user-not-found':
+          break;
+        case 'wrong-password':
+          break;
+        case 'invalid-verification-code':
+          break;
+        case 'invalid-verification-id':
           break;
       }
     }
