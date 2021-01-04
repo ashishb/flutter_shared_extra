@@ -44,28 +44,51 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           children: <Widget>[
             ElevatedButton(
               onPressed: () async {
-                final bool result = await auth.addAdminClaimToUid(uid);
+                final claim = await showStringDialog(
+                    context: context,
+                    title: 'Add Membership',
+                    message:
+                        'Enter a membership id to make this user a member.');
 
-                if (result) {
-                  Utils.showSnackbar(context, '$uid as now an Admin');
-                } else {
-                  Utils.showSnackbar(context, 'An error occurred', error: true);
+                if (Utils.isNotEmpty(claim)) {
+                  final bool result = await auth.addClaimToUid(uid, claim);
+
+                  if (result) {
+                    Utils.showSnackbar(
+                        context, '$uid as now is a member of $claim');
+
+                    Navigator.of(context).pop(true);
+                  } else {
+                    Utils.showSnackbar(context, 'An error occurred',
+                        error: true);
+                  }
                 }
               },
-              child: const Text('Add Admin'),
+              child: const Text('Add Membership'),
             ),
             ElevatedButton(
               onPressed: () async {
-                final bool result = await auth.deleteClaimForUid(uid);
+                final claim = await showStringDialog(
+                    context: context,
+                    title: 'Remove Membership',
+                    message:
+                        'Enter a membership id to remove this user as as a member.');
 
-                if (result) {
-                  Utils.showSnackbar(
-                      context, 'Admin has been removed for $uid');
-                } else {
-                  Utils.showSnackbar(context, 'An error occurred', error: true);
+                if (Utils.isNotEmpty(claim)) {
+                  final bool result = await auth.removeClaimForUid(uid, claim);
+
+                  if (result) {
+                    Utils.showSnackbar(
+                        context, '$claim membership has been removed for $uid');
+
+                    Navigator.of(context).pop(true);
+                  } else {
+                    Utils.showSnackbar(context, 'An error occurred',
+                        error: true);
+                  }
                 }
               },
-              child: const Text('Delete Claims'),
+              child: const Text('Remove Membership'),
             ),
           ],
         );

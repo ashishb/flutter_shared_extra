@@ -3,13 +3,27 @@ import 'package:flutter_shared/flutter_shared.dart';
 import 'package:flutter_shared_extra/src/users/user_details_screen.dart';
 import 'package:flutter_shared_extra/src/users/user_utils.dart';
 
-class UsersScreen extends StatelessWidget {
+class UsersScreen extends StatefulWidget {
+  @override
+  _UsersScreenState createState() => _UsersScreenState();
+}
+
+class _UsersScreenState extends State<UsersScreen> {
+  Future<List<Map>> _future;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _future = UserUtils.users();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Users')),
-      body: StreamBuilder<List<Map>>(
-        stream: UserUtils.users().asStream(),
+      body: FutureBuilder<List<Map>>(
+        future: _future,
         builder: (context, snap) {
           bool hasData = false;
 
@@ -39,7 +53,7 @@ class UsersScreen extends StatelessWidget {
                 String title = '';
                 title += displayName.isNotEmpty ? displayName : '';
                 if (title.isNotEmpty) {
-                  title += email.isNotEmpty ? ' : $email' : '';
+                  title += email.isNotEmpty ? ' / $email' : '';
                 } else {
                   title += email.isNotEmpty ? email : '';
 
@@ -69,14 +83,20 @@ class UsersScreen extends StatelessWidget {
                   ),
                   title: Text(title),
                   subtitle: subtitle,
-                  onTap: () {
-                    Navigator.of(context).push<void>(
+                  onTap: () async {
+                    final modified = await Navigator.of(context).push<bool>(
                       MaterialPageRoute(
                         builder: (context) => UserDetailsScreen(
                           map: Map<String, dynamic>.from(item),
                         ),
                       ),
                     );
+
+                    if (modified == true) {
+                      setState(() {
+                        _future = UserUtils.users();
+                      });
+                    }
                   },
                 );
               },

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
@@ -226,24 +227,43 @@ class AuthService {
     return SignInResult(user: user, errorString: errorString);
   }
 
-  Future<bool> addAdminClaimToEmail(String email) async {
-    return modifyClaims(email, null, <String, dynamic>{'admin': true});
+  Future<bool> addClaimToEmail(String email, String claim) async {
+    return _modifyClaims(
+      email: email,
+      uid: null,
+      claims: <String, bool>{claim: true},
+    );
   }
 
-  Future<bool> deleteClaimForEmail(String email) async {
-    return modifyClaims(email, null, null);
+  Future<bool> removeClaimForEmail(String email, String claim) async {
+    return _modifyClaims(
+      email: email,
+      uid: null,
+      claims: <String, bool>{claim: false},
+    );
   }
 
-  Future<bool> addAdminClaimToUid(String uid) async {
-    return modifyClaims(null, uid, <String, dynamic>{'admin': true});
+  Future<bool> addClaimToUid(String uid, String claim) async {
+    return _modifyClaims(
+      email: null,
+      uid: uid,
+      claims: <String, bool>{claim: true},
+    );
   }
 
-  Future<bool> deleteClaimForUid(String uid) async {
-    return modifyClaims(null, uid, null);
+  Future<bool> removeClaimForUid(String uid, String claim) async {
+    return _modifyClaims(
+      email: null,
+      uid: uid,
+      claims: <String, bool>{claim: false},
+    );
   }
 
-  Future<bool> modifyClaims(
-      String email, String uid, Map<String, dynamic> claims) async {
+  Future<bool> _modifyClaims({
+    @required String email,
+    @required String uid,
+    @required Map<String, bool> claims,
+  }) async {
     try {
       final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
         'addUserClaims',
@@ -271,19 +291,29 @@ class AuthService {
   }
 
   Future<bool> isAdmin() async {
-    final auth.User user = currentUser;
+    final userClaims = await claims();
 
+    return userClaims.contains('admin');
+  }
+
+  Future<List<String>> claims() async {
+    final List<String> result = [];
+
+    final auth.User user = currentUser;
     if (user != null) {
       try {
-        return user.getIdTokenResult().then((x) {
-          return x.claims['admin'] == true;
+        final x = await user.getIdTokenResult();
+
+        x.claims.keys.forEach((key) {
+          if (x.claims[key] == true) {
+            result.add(key);
+          }
         });
       } catch (error) {
         print(error);
-        return false;
       }
     }
 
-    return false;
+    return result;
   }
 }
