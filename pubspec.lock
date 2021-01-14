@@ -358,11 +358,9 @@ packages:
   flutter_shared:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "453ecbb36457c711556d1e85fce62d1ac871b53f"
-      url: "ssh://git@github.com/sgehrman/flutter_shared"
-    source: git
+      path: "../flutter_shared"
+      relative: true
+    source: path
     version: "1.0.1"
   flutter_svg:
     dependency: transitive
@@ -889,4 +887,4 @@ packages:
     version: "4.5.1"
 sdks:
   dart: ">=2.12.0-0 <3.0.0"
-  flutter: ">=1.24.0-6.0.pre"
+  flutter: ">=1.24.0-6.0.pre <2.0.0"
