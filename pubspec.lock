@@ -290,6 +290,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_archive:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "6aeed6f4b6deb877947e96b2f8edf67af5bdb1cc"
+      url: "git://github.com/sgehrman/flutter_archive"
+    source: git
+    version: "0.1.4"
   flutter_barcode_scanner:
     dependency: transitive
     description:
@@ -360,7 +369,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e9d4b3b0d8b7004620b33fb163f411abd5c418b1
+      resolved-ref: "7026e2d9cfe5f4eaec606cfc7f704fca14e03045"
       url: "ssh://git@github.com/sgehrman/flutter_shared"
     source: git
     version: "1.0.1"
@@ -389,7 +398,7 @@ packages:
       name: google_sign_in
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.6"
+    version: "4.5.9"
   google_sign_in_platform_interface:
     dependency: transitive
     description:
@@ -459,7 +468,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.7+17"
+    version: "0.6.7+21"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -578,7 +587,7 @@ packages:
       name: path_provider_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.4+6"
+    version: "0.0.4+8"
   path_provider_platform_interface:
     dependency: transitive
     description:
@@ -634,7 +643,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.2+3"
+    version: "4.3.2+4"
   qr:
     dependency: transitive
     description:
