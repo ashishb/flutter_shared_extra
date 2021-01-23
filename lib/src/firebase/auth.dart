@@ -21,14 +21,10 @@ class AuthService {
   AuthService._();
   static AuthService _instance;
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
-  final FirebaseFirestore _store = FirebaseFirestore.instance;
-
-  auth.User get currentUser => _auth.currentUser;
-  Stream<auth.User> get userStream => _auth.authStateChanges();
-  FirebaseFirestore get store => _store;
-  auth.FirebaseAuth get fbAuth => _auth;
+  auth.User get currentUser => fbAuth.currentUser;
+  Stream<auth.User> get userStream => fbAuth.authStateChanges();
+  FirebaseFirestore get store => FirebaseFirestore.instance;
+  auth.FirebaseAuth get fbAuth => auth.FirebaseAuth.instance;
 
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> emailSignIn(String email, String password) async {
@@ -41,7 +37,7 @@ class AuthService {
 
     try {
       final auth.UserCredential authResult =
-          await _auth.signInWithEmailAndPassword(
+          await fbAuth.signInWithEmailAndPassword(
         email: trimmedEmail,
         password: trimmedPassword,
       );
@@ -82,7 +78,7 @@ class AuthService {
 
     try {
       final auth.UserCredential result =
-          await _auth.createUserWithEmailAndPassword(
+          await fbAuth.createUserWithEmailAndPassword(
         email: trimmedEmail,
         password: trimmedPassword,
       );
@@ -113,7 +109,7 @@ class AuthService {
 
     try {
       final GoogleSignInAccount googleSignInAccount =
-          await _googleSignIn.signIn();
+          await GoogleSignIn().signIn();
       final GoogleSignInAuthentication googleAuth =
           await googleSignInAccount.authentication;
 
@@ -123,7 +119,7 @@ class AuthService {
       );
 
       final auth.UserCredential authResult =
-          await _auth.signInWithCredential(credential);
+          await fbAuth.signInWithCredential(credential);
       user = authResult.user;
     } on auth.FirebaseAuthException catch (error) {
       errorString = error.message;
@@ -159,7 +155,7 @@ class AuthService {
     String errorString;
 
     try {
-      final auth.UserCredential authResult = await _auth.signInAnonymously();
+      final auth.UserCredential authResult = await fbAuth.signInAnonymously();
 
       user = authResult.user;
     } on auth.FirebaseAuthException catch (error) {
@@ -175,7 +171,7 @@ class AuthService {
   }
 
   Future<void> signOut() {
-    return _auth.signOut();
+    return fbAuth.signOut();
   }
 
   bool isAnonymous() {
@@ -190,7 +186,7 @@ class AuthService {
 
   Future<Map> sendPasswordResetEmail(String email) async {
     try {
-      await _auth.sendPasswordResetEmail(email: email);
+      await fbAuth.sendPasswordResetEmail(email: email);
 
       return <String, dynamic>{'result': true, 'errorString': ''};
     } on auth.FirebaseAuthException catch (error) {
@@ -222,7 +218,7 @@ class AuthService {
       );
 
       final auth.UserCredential authResult =
-          await _auth.signInWithCredential(credential);
+          await fbAuth.signInWithCredential(credential);
       user = authResult.user;
     } on auth.FirebaseAuthException catch (error) {
       errorString = error.message;
