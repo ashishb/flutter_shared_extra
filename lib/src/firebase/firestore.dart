@@ -34,6 +34,10 @@ class Document {
 
   Document.withRef(this.ref);
 
+  String path() {
+    return ref.path;
+  }
+
   final FirebaseFirestore _store = AuthService().store;
   DocumentReference ref;
 
@@ -73,6 +77,10 @@ class Collection {
 
   final FirebaseFirestore _store = AuthService().store;
   CollectionReference ref;
+
+  String path() {
+    return ref.path;
+  }
 
   Document document(String path) {
     return Document.withRef(ref.doc(path));
