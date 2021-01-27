@@ -303,7 +303,7 @@ class AuthService {
         return true;
       }
     } catch (error) {
-      print('erroor $error');
+      print('error $error');
     }
 
     return false;

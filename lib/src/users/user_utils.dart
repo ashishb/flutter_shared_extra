@@ -23,7 +23,32 @@ class UserUtils {
         return null;
       });
     } catch (error) {
-      print('erroor $error');
+      print('error $error');
+    }
+
+    return null;
+  }
+
+  static Future<List<String>> getSubCollections(String docPath) async {
+    try {
+      final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        'users',
+      );
+
+      final params = <dynamic, dynamic>{
+        'docPath': docPath,
+      };
+
+      return callable.call<Map>(params).then((HttpsCallableResult resp) {
+        if (resp != null && resp.data != null) {
+          final List<String> m = resp.data.collections as List<String>;
+
+          return m;
+        }
+        return null;
+      });
+    } catch (error) {
+      print('error $error');
     }
 
     return null;
