@@ -44,15 +44,21 @@ class Document {
   String get documentId => ref.id;
 
   Future<T> getData<T>() {
-    return ref
-        .get()
-        .then((v) => FirestoreRefs.convert(T, v.data(), documentId) as T);
+    return ref.get().then((v) => FirestoreRefs.convert(
+          T,
+          v.data(),
+          documentId,
+          Document.withRef(v.reference),
+        ) as T);
   }
 
   Stream<T> streamData<T>() {
-    return ref
-        .snapshots()
-        .map((v) => FirestoreRefs.convert(T, v.data(), documentId) as T);
+    return ref.snapshots().map((v) => FirestoreRefs.convert(
+          T,
+          v.data(),
+          documentId,
+          Document.withRef(v.reference),
+        ) as T);
   }
 
   Future<void> upsert(Map<String, dynamic> data) {
@@ -89,13 +95,23 @@ class Collection {
   Future<List<T>> getData<T>() async {
     final snapshots = await ref.get();
     return snapshots.docs
-        .map((doc) => FirestoreRefs.convert(T, doc.data(), doc.id) as T)
+        .map((doc) => FirestoreRefs.convert(
+              T,
+              doc.data(),
+              doc.id,
+              Document.withRef(doc.reference),
+            ) as T)
         .toList();
   }
 
   Stream<List<T>> streamData<T>() {
     return ref.snapshots().map((v) => v.docs
-        .map((doc) => FirestoreRefs.convert(T, doc.data(), doc.id) as T)
+        .map((doc) => FirestoreRefs.convert(
+              T,
+              doc.data(),
+              doc.id,
+              Document.withRef(doc.reference),
+            ) as T)
         .toList());
   }
 
@@ -110,7 +126,12 @@ class Collection {
         final Query tmpQuery = w.where(query);
 
         streams.add(tmpQuery.snapshots().map((v) => v.docs.map((doc) {
-              return FirestoreRefs.convert(T, doc.data(), doc.id) as T;
+              return FirestoreRefs.convert(
+                T,
+                doc.data(),
+                doc.id,
+                Document.withRef(doc.reference),
+              ) as T;
             }).toList()));
       }
 
@@ -130,7 +151,12 @@ class Collection {
       return stream.asBroadcastStream();
     } else {
       return query.snapshots().map((v) => v.docs
-          .map((doc) => FirestoreRefs.convert(T, doc.data(), doc.id) as T)
+          .map((doc) => FirestoreRefs.convert(
+                T,
+                doc.data(),
+                doc.id,
+                Document.withRef(doc.reference),
+              ) as T)
           .toList());
     }
   }

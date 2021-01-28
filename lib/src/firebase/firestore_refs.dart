@@ -1,12 +1,17 @@
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
 typedef FirestoreRefConverter = dynamic Function(
-    Type t, Map<String, dynamic> data, String id);
+    Type t, Map<String, dynamic> data, String id, Document document);
 
 class FirestoreRefs {
   static FirestoreRefConverter converter;
 
-  static dynamic convert(Type t, Map<String, dynamic> data, String id) {
+  static dynamic convert(
+    Type t,
+    Map<String, dynamic> data,
+    String id,
+    Document document,
+  ) {
     // data is null if you try to get a specific object and it doesn't exist.
     if (data == null) {
       return null;
@@ -19,7 +24,7 @@ class FirestoreRefs {
       return ChatMessage.fromMap(data);
     } else {
       if (converter != null) {
-        return converter(t, data, id);
+        return converter(t, data, id, document);
       }
     }
   }
