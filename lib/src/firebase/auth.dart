@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:flutter/foundation.dart';
+import 'package:flutter_shared_extra/src/firebase/firebase_utils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_shared/flutter_shared.dart';
@@ -247,7 +246,7 @@ class AuthService {
   }
 
   Future<bool> addClaimToEmail(String email, String claim) async {
-    return _modifyClaims(
+    return FirebaseUtils.modifyClaims(
       email: email,
       uid: null,
       claims: <String, bool>{claim: true},
@@ -255,7 +254,7 @@ class AuthService {
   }
 
   Future<bool> removeClaimForEmail(String email, String claim) async {
-    return _modifyClaims(
+    return FirebaseUtils.modifyClaims(
       email: email,
       uid: null,
       claims: <String, bool>{claim: false},
@@ -263,7 +262,7 @@ class AuthService {
   }
 
   Future<bool> addClaimToUid(String uid, String claim) async {
-    return _modifyClaims(
+    return FirebaseUtils.modifyClaims(
       email: null,
       uid: uid,
       claims: <String, bool>{claim: true},
@@ -271,42 +270,11 @@ class AuthService {
   }
 
   Future<bool> removeClaimForUid(String uid, String claim) async {
-    return _modifyClaims(
+    return FirebaseUtils.modifyClaims(
       email: null,
       uid: uid,
       claims: <String, bool>{claim: false},
     );
-  }
-
-  Future<bool> _modifyClaims({
-    @required String email,
-    @required String uid,
-    @required Map<String, bool> claims,
-  }) async {
-    try {
-      final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
-        'addUserClaims',
-      );
-      final HttpsCallableResult resp =
-          await callable.call<Map>(<String, dynamic>{
-        'email': email,
-        'uid': uid,
-        'claims': claims,
-      });
-
-      if (resp != null && resp.data != null) {
-        if (resp.data['error'] != null) {
-          print(resp.data);
-          return false;
-        }
-
-        return true;
-      }
-    } catch (error) {
-      print('error $error');
-    }
-
-    return false;
   }
 
   Future<bool> isAdmin() async {

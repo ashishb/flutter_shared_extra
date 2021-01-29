@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared.dart';
 import 'package:flutter_shared_extra/src/users/user_details_screen.dart';
-import 'package:flutter_shared_extra/src/users/user_utils.dart';
+import 'package:flutter_shared_extra/src/firebase/firebase_utils.dart';
 
 class UsersScreen extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class _UsersScreenState extends State<UsersScreen> {
   void initState() {
     super.initState();
 
-    _future = UserUtils.users();
+    _future = FirebaseUtils.users();
   }
 
   @override
@@ -94,7 +94,7 @@ class _UsersScreenState extends State<UsersScreen> {
 
                     if (modified == true) {
                       setState(() {
-                        _future = UserUtils.users();
+                        _future = FirebaseUtils.users();
                       });
                     }
                   },
