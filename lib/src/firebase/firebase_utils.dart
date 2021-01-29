@@ -55,23 +55,6 @@ class FirebaseUtils {
     return null;
   }
 
-  // Call the 'recursiveDelete' callable function with a path to initiate
-  // a server-side delete.
-  static Future<void> deleteAtPath(String path) async {
-    final HttpsCallable callable =
-        FirebaseFunctions.instance.httpsCallable('recursiveDelete');
-
-    try {
-      await callable({path: path}).then((result) {
-        print(result);
-        print('Delete success');
-      });
-    } catch (err) {
-      print('Delete failed, see console');
-      print(err);
-    }
-  }
-
   static Future<bool> modifyClaims({
     @required String email,
     @required String uid,
