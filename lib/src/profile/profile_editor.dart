@@ -102,12 +102,11 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
             ],
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 20),
         Text(
           'Edit your Avatar image',
           style: Theme.of(context).textTheme.caption,
         ),
-        const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
