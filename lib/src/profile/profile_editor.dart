@@ -40,7 +40,7 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
 
     return SimpleDialog(
       title: Text(
-        'Edit your Information',
+        'Edit your Profile',
         style: Theme.of(context).textTheme.headline5,
       ),
       contentPadding:
@@ -102,10 +102,14 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
             ],
           ),
         ),
-        const SizedBox(
-          height: 10,
+        const SizedBox(height: 10),
+        Text(
+          'Edit your Avatar image',
+          style: Theme.of(context).textTheme.caption,
         ),
+        const SizedBox(height: 10),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
               onPressed: () => handleImagePicker(camera: true),
@@ -121,9 +125,9 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
             ),
           ],
         ),
-        Text(_data.photoUrl ?? userProvider.photoUrl ?? ''),
+        // Text(_data.photoUrl ?? userProvider.photoUrl ?? ''),
         const SizedBox(
-          height: 20,
+          height: 10,
         ),
         ThemeButton(
           title: 'Save',
