@@ -174,12 +174,10 @@ packages:
   extended_image:
     dependency: transitive
     description:
-      path: "."
-      ref: dev
-      resolved-ref: "7cf821eac3514521ffd34621caa4175f1ee679c0"
-      url: "git://github.com/fluttercandies/extended_image"
-    source: git
-    version: "1.5.0-dev"
+      name: extended_image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.0"
   extended_image_library:
     dependency: transitive
     description:
@@ -369,7 +367,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "0e54b9da6bc6d9546d7b089cda62e1bb944eb24f"
+      resolved-ref: "12d1718ae1594f59a79e56442c68a52f195ac319"
       url: "ssh://git@github.com/sgehrman/flutter_shared"
     source: git
     version: "1.0.1"
