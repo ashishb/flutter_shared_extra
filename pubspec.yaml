@@ -28,8 +28,8 @@ dependencies:
   stream_transform: ^1.2.0
 
   flutter_shared:
-    git: ssh://git@github.com/sgehrman/flutter_shared
-    # path: ../flutter_shared
+    # git: ssh://git@github.com/sgehrman/flutter_shared
+    path: ../flutter_shared
 
 dev_dependencies:
   lint: ^1.0.0
