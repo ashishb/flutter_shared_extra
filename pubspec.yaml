@@ -35,7 +35,7 @@ dev_dependencies:
   lint: ^1.0.0
 
 dependency_overrides:
-  xml: ^4.2.0
+  xml: ^4.5.1
 
 flutter:
   uses-material-design: true

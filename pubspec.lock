@@ -177,7 +177,7 @@ packages:
       name: extended_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.0"
+    version: "1.6.0-dev"
   extended_image_library:
     dependency: transitive
     description:
@@ -365,7 +365,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "060d89db09b89fc3dd7f8b88f46f946be474e824"
+      resolved-ref: b959be7a330db47aa8ea091c619a91893e9c34cc
       url: "ssh://git@github.com/sgehrman/flutter_shared"
     source: git
     version: "1.0.1"
