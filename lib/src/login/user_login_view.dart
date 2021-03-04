@@ -49,7 +49,11 @@ class UserLoginViewState extends State<UserLoginView> {
             text: 'Anonymous Login ',
             icon: Icons.person,
             type: 'anon',
-          )
+          ),
+          UserLoginButton(
+              text: 'Sign in With Apple',
+              icon: Icons.pool_sharp,
+              type: 'apple'),
         ],
       ),
     );

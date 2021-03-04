@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/login/login_apple.dart';
 import 'package:flutter_shared_extra/src/login/login_email.dart';
 import 'package:flutter_shared_extra/src/login/login_phone.dart';
 
@@ -20,7 +21,7 @@ class UserLoginButton extends StatefulWidget {
 class _UserLoginButtonState extends State<UserLoginButton> {
   void handleAuthResult(BuildContext context, SignInResult result) {
     if (result != null) {
-      if (result.errorString != null && result.errorString.isNotEmpty) {
+      if (Utils.isNotEmpty(result.errorString)) {
         Utils.showSnackbar(context, result.errorString, error: true);
       }
 
@@ -66,6 +67,12 @@ class _UserLoginButtonState extends State<UserLoginButton> {
         break;
       case 'google':
         handleAuthResult(context, await auth.googleSignIn());
+        break;
+      case 'apple':
+        final userCredential = await signInWithApple();
+
+        handleAuthResult(
+            context, SignInResult(user: userCredential.user, errorString: ''));
         break;
       default:
         handleAuthResult(context, await auth.anonLogin());

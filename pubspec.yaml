@@ -26,6 +26,7 @@ dependencies:
   image_picker: ^0.6.7+22
   provider: ^4.3.3
   stream_transform: ^2.0.0
+  sign_in_with_apple: ^2.5.4
 
   flutter_shared:
     git: ssh://git@github.com/sgehrman/flutter_shared
