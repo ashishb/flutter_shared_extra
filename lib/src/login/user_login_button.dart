@@ -5,6 +5,7 @@ import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 import 'package:flutter_shared_extra/src/login/login_apple.dart';
 import 'package:flutter_shared_extra/src/login/login_email.dart';
 import 'package:flutter_shared_extra/src/login/login_phone.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class UserLoginButton extends StatefulWidget {
   const UserLoginButton({Key key, this.text, this.icon, this.type})
@@ -82,6 +83,12 @@ class _UserLoginButtonState extends State<UserLoginButton> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.type == 'apple') {
+      return SignInWithAppleButton(
+        onPressed: _handleOnPressed,
+      );
+    }
+
     return ThemeButton(
       icon: Icon(widget.icon),
       onPressed: _handleOnPressed,
