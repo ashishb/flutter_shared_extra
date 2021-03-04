@@ -8,8 +8,11 @@ import 'package:flutter_shared_extra/src/login/login_phone.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class UserLoginButton extends StatefulWidget {
-  const UserLoginButton({Key key, this.text, this.icon, this.type})
-      : super(key: key);
+  const UserLoginButton({
+    @required this.text,
+    @required this.icon,
+    @required this.type,
+  });
 
   final IconData icon;
   final String text;

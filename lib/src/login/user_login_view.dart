@@ -5,6 +5,10 @@ import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 import 'package:flutter_shared_extra/src/login/user_login_button.dart';
 
 class UserLoginView extends StatefulWidget {
+  const UserLoginView({this.anonymousLogin = true});
+
+  final bool anonymousLogin;
+
   @override
   State<StatefulWidget> createState() => UserLoginViewState();
 }
@@ -21,40 +25,60 @@ class UserLoginViewState extends State<UserLoginView> {
   AuthService auth = AuthService();
   String appName = '';
 
+  List<Widget> _buttons() {
+    final List<Widget> result = [];
+
+    result.addAll(<Widget>[
+      const UserLoginButton(
+        text: 'Login with Email',
+        icon: Icons.email,
+        type: 'email',
+      ),
+      const SizedBox(height: 4),
+      const UserLoginButton(
+        text: 'Login with Phone',
+        icon: Icons.phone,
+        type: 'phone',
+      ),
+      const SizedBox(height: 4),
+      const UserLoginButton(
+        text: 'Login with Google',
+        icon: FontAwesome5Brands.google,
+        type: 'google',
+      ),
+    ]);
+
+    if (Utils.isIOS) {
+      result.addAll(<Widget>[
+        const SizedBox(height: 4),
+        const UserLoginButton(
+          text: 'Sign in With Apple',
+          icon: Icons.person, // not used
+          type: 'apple',
+        ),
+      ]);
+    }
+
+    if (widget.anonymousLogin) {
+      result.addAll(<Widget>[
+        const SizedBox(height: 4),
+        const UserLoginButton(
+          text: 'Anonymous Login ',
+          icon: Icons.person,
+          type: 'anon',
+        ),
+      ]);
+    }
+
+    return result;
+  }
+
   Widget loginButtons(BuildContext context) {
     // IntrinsicWidth and CrossAxisAlignment.stretch make all children equal width
     return IntrinsicWidth(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const <Widget>[
-          UserLoginButton(
-            text: 'Login with Email',
-            icon: Icons.email,
-            type: 'email',
-          ),
-          SizedBox(height: 4),
-          UserLoginButton(
-            text: 'Login with Phone',
-            icon: Icons.phone,
-            type: 'phone',
-          ),
-          SizedBox(height: 4),
-          UserLoginButton(
-            text: 'Login with Google',
-            icon: FontAwesome5Brands.google,
-            type: 'google',
-          ),
-          SizedBox(height: 4),
-          UserLoginButton(
-            text: 'Anonymous Login ',
-            icon: Icons.person,
-            type: 'anon',
-          ),
-          UserLoginButton(
-              text: 'Sign in With Apple',
-              icon: Icons.pool_sharp,
-              type: 'apple'),
-        ],
+        children: _buttons(),
       ),
     );
   }

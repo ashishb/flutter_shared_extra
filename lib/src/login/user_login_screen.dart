@@ -4,9 +4,13 @@ import 'package:flutter_shared_extra/src/login/user_login_view.dart';
 import 'package:provider/provider.dart';
 
 class UserLoginScreen extends StatefulWidget {
-  const UserLoginScreen({this.title});
+  const UserLoginScreen({
+    this.title,
+    this.anonymousLogin = true,
+  });
 
   final String title;
+  final bool anonymousLogin;
 
   @override
   _UserLoginScreenState createState() => _UserLoginScreenState();
@@ -33,7 +37,9 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
     return Scaffold(
       // without the app bar, the status bar text was white on white
       appBar: AppBar(title: Text(widget.title ?? '')),
-      body: UserLoginView(),
+      body: UserLoginView(
+        anonymousLogin: widget.anonymousLogin,
+      ),
     );
   }
 }
