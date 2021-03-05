@@ -42,7 +42,9 @@ class FirebaseUtils {
 
       return callable.call<Map>(params).then((HttpsCallableResult resp) {
         if (resp != null && resp.data != null) {
-          final List<String> m = resp.data.collections as List<String>;
+          final respMap = resp.data as Map<String, dynamic>;
+
+          final List<String> m = respMap['collections'] as List<String>;
 
           return m;
         }
@@ -72,7 +74,44 @@ class FirebaseUtils {
       });
 
       if (resp != null && resp.data != null) {
-        if (resp.data['error'] != null) {
+        final respMap = resp.data as Map<String, dynamic>;
+
+        if (respMap['error'] != null) {
+          print(resp.data);
+          return false;
+        }
+
+        return true;
+      }
+    } catch (error) {
+      print('error $error');
+    }
+
+    return false;
+  }
+
+  static Future<bool> sendEmail({
+    @required String to,
+    @required String subject,
+    @required String content,
+    @required String from,
+  }) async {
+    try {
+      final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        'sendEmail',
+      );
+      final HttpsCallableResult resp =
+          await callable.call<Map>(<String, dynamic>{
+        'to': to,
+        'subject': subject,
+        'from': from,
+        'content': content,
+      });
+
+      if (resp != null && resp.data != null) {
+        final respMap = resp.data as Map<String, dynamic>;
+
+        if (respMap['error'] != null) {
           print(resp.data);
           return false;
         }
