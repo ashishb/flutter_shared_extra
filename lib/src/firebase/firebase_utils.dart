@@ -93,7 +93,7 @@ class FirebaseUtils {
   static Future<bool> sendEmail({
     @required String to,
     @required String subject,
-    @required String content,
+    @required String text,
     @required String from,
   }) async {
     try {
@@ -105,7 +105,7 @@ class FirebaseUtils {
         'to': to,
         'subject': subject,
         'from': from,
-        'content': content,
+        'text': text,
       });
 
       if (resp != null && resp.data != null) {
