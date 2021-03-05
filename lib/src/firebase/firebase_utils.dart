@@ -42,7 +42,7 @@ class FirebaseUtils {
 
       return callable.call<Map>(params).then((HttpsCallableResult resp) {
         if (resp != null && resp.data != null) {
-          final respMap = resp.data as Map<String, dynamic>;
+          final respMap = resp.data as Map;
 
           final List<String> m = respMap['collections'] as List<String>;
 
@@ -74,7 +74,7 @@ class FirebaseUtils {
       });
 
       if (resp != null && resp.data != null) {
-        final respMap = resp.data as Map<String, dynamic>;
+        final respMap = resp.data as Map;
 
         if (respMap['error'] != null) {
           print(resp.data);
@@ -109,7 +109,7 @@ class FirebaseUtils {
       });
 
       if (resp != null && resp.data != null) {
-        final respMap = resp.data as Map<String, dynamic>;
+        final respMap = resp.data as Map;
 
         if (respMap['error'] != null) {
           print(resp.data);
