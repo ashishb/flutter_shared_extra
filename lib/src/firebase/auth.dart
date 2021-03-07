@@ -303,4 +303,66 @@ class AuthService {
 
     return result;
   }
+
+  String get identity {
+    String result = displayName;
+
+    if (result.isEmpty) {
+      result = phoneNumber;
+    }
+
+    if (result.isEmpty) {
+      result = email;
+    }
+
+    if (result.isEmpty) {
+      result = 'Guest';
+    }
+
+    return result;
+  }
+
+  String get displayName {
+    String result;
+
+    final auth.User user = currentUser;
+    if (user != null) {
+      result = user.displayName;
+    }
+
+    return result ?? '';
+  }
+
+  String get phoneNumber {
+    String result;
+
+    final auth.User user = currentUser;
+    if (user != null) {
+      result = user.phoneNumber;
+    }
+
+    return result ?? '';
+  }
+
+  String get email {
+    String result;
+
+    final auth.User user = currentUser;
+    if (user != null) {
+      result = user.email;
+    }
+
+    return result ?? '';
+  }
+
+  String get photoUrl {
+    String result;
+
+    final auth.User user = currentUser;
+    if (user != null) {
+      result = user.photoURL;
+    }
+
+    return result ?? '';
+  }
 }

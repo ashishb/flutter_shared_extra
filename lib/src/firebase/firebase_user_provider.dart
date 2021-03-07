@@ -27,61 +27,23 @@ class FirebaseUserProvider extends ChangeNotifier {
   }
 
   String get identity {
-    String result = displayName;
-
-    if (result.isEmpty) {
-      result = phoneNumber;
-    }
-
-    if (result.isEmpty) {
-      result = email;
-    }
-
-    if (result.isEmpty) {
-      result = 'Guest';
-    }
-
-    return result;
+    return _auth.identity;
   }
 
   String get displayName {
-    String result;
-
-    if (_user != null) {
-      result = _user.displayName;
-    }
-
-    return result ?? '';
+    return _auth.displayName;
   }
 
   String get phoneNumber {
-    String result;
-
-    if (_user != null) {
-      result = _user.phoneNumber;
-    }
-
-    return result ?? '';
+    return _auth.phoneNumber;
   }
 
   String get email {
-    String result;
-
-    if (_user != null) {
-      result = _user.email;
-    }
-
-    return result ?? '';
+    return _auth.email;
   }
 
   String get photoUrl {
-    String result;
-
-    if (_user != null) {
-      result = _user.photoURL;
-    }
-
-    return result ?? '';
+    return _auth.photoUrl;
   }
 
   Future<void> updateProfile(String displayName, String photoURL) async {

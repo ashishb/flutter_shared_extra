@@ -61,13 +61,13 @@ class _UsersScreenState extends State<UsersScreen> {
                   title += title.isEmpty ? uid : '';
                 }
 
+                final Map metadata = item['metadata'] as Map;
                 final subtitle = Padding(
                     padding: const EdgeInsets.only(top: 4, left: 2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                            "Last Login: ${item['metadata']['lastSignInTime']}"),
+                        Text("Last Login: ${metadata['lastSignInTime']}"),
                         if (customClaims != null) Text(customClaims.toString()),
                       ],
                     ));
