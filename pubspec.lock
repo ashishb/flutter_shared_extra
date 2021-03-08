@@ -386,8 +386,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b4678af20c0ed85d3acacdcf311e013ebb2ffe0b
-      url: "ssh://git@github.com/sgehrman/flutter_shared"
+      resolved-ref: b4d43a1682568b248dd59bec7dcee877b90625e8
+      url: "git://github.com/sgehrman/flutter_shared"
     source: git
     version: "1.0.1"
   flutter_svg:
@@ -518,7 +518,7 @@ packages:
       name: lint
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.2"
+    version: "1.5.3"
   matcher:
     dependency: transitive
     description:
@@ -770,7 +770,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.0"
   stack_trace:
     dependency: transitive
     description:

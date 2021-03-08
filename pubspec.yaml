@@ -6,7 +6,7 @@ homepage: distantfutu.re
 publish_to: none
 
 environment:
-  sdk: ">=2.10.5 <3.0.0"
+  sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -29,7 +29,7 @@ dependencies:
   sign_in_with_apple: ^2.5.4
 
   flutter_shared:
-    git: ssh://git@github.com/sgehrman/flutter_shared
+    git: git://github.com/sgehrman/flutter_shared
     # path: ../flutter_shared
 
 dev_dependencies:
