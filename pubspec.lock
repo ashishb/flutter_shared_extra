@@ -28,7 +28,7 @@ packages:
       name: avatar_glow
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   barcode:
     dependency: transitive
     description:
@@ -70,14 +70,14 @@ packages:
       name: bot_toast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0+1"
+    version: "4.0.1"
   bubble:
     dependency: "direct main"
     description:
       name: bubble
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.9+1"
+    version: "1.2.1"
   characters:
     dependency: transitive
     description:
@@ -175,7 +175,7 @@ packages:
       name: email_validator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.6"
+    version: "2.0.1"
   extended_image:
     dependency: transitive
     description:
@@ -281,20 +281,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  flare_dart:
-    dependency: transitive
-    description:
-      name: flare_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.3.4"
   flare_flutter:
     dependency: transitive
     description:
       name: flare_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.6"
+    version: "3.0.0-nullsafety.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -317,12 +310,10 @@ packages:
   flutter_colorpicker:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "3d1d6a4a381b178028115457b52a901bcabba051"
-      url: "git://github.com/sgehrman/flutter_colorpicker"
-    source: git
-    version: "0.3.4"
+      name: flutter_colorpicker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0-nullsafety.0"
   flutter_icons:
     dependency: transitive
     description:
@@ -354,12 +345,10 @@ packages:
   flutter_multi_formatter:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "5f1e773fa978dc357a08b4f12f1ee92ce5deb87d"
-      url: "git://github.com/caseyryan/flutter_multi_formatter.git"
-    source: git
-    version: "1.3.7"
+      name: flutter_multi_formatter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   flutter_parsed_text:
     dependency: "direct main"
     description:
@@ -379,7 +368,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "285e544b32a776719b487e5ec79201e17160ae22"
+      resolved-ref: "036c5143e7619935c6be4bef4ddf390b13b4461e"
       url: "git://github.com/sgehrman/flutter_shared"
     source: git
     version: "1.0.1"
@@ -434,7 +423,7 @@ packages:
       name: hex
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2"
+    version: "0.2.0"
   hive:
     dependency: transitive
     description:
@@ -483,7 +472,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.2"
+    version: "0.7.2+1"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -532,7 +521,7 @@ packages:
       name: mime_type
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2"
+    version: "1.0.0"
   native_pdf_renderer:
     dependency: transitive
     description:
@@ -681,23 +670,21 @@ packages:
       name: random_string
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0-nullsafety"
   share_extend:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "1a4e054f3f43103f995a04587bbb2191488379c1"
-      url: "git://github.com/sgehrman/ShareExtend"
-    source: git
-    version: "1.1.5"
+      name: share_extend
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.9"
   shared_preferences:
     dependency: transitive
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.4"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -746,7 +733,7 @@ packages:
       name: simple_animations
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -891,7 +878,7 @@ packages:
       name: video_player
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   video_player_platform_interface:
     dependency: transitive
     description:
@@ -912,7 +899,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.4"
   xdg_directories:
     dependency: transitive
     description:

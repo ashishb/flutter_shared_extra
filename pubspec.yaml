@@ -12,24 +12,21 @@ dependencies:
   flutter:
     sdk: flutter
 
-  bubble: ^1.1.9+1
-  cloud_firestore: ^1.0.0
+  bubble: ^1.2.1
+  cloud_firestore: ^1.0.1
   cloud_functions: ^1.0.0
-  firebase_auth: ^1.0.0
+  firebase_auth: ^1.0.1
   firebase_storage: ^8.0.0
   flutter_keyboard_visibility: ^5.0.0
   flutter_parsed_text: ^2.1.0
-  avatar_glow: ^2.0.0
+  avatar_glow: ^2.0.1
   google_sign_in: ^5.0.0
   image: ^3.0.1
-  image_picker: ^0.7.2
+  image_picker: ^0.7.2+1
   provider: ^5.0.0
   stream_transform: ^2.0.0
   sign_in_with_apple: ^3.0.0
-
-  # should be fixed soon
-  flutter_multi_formatter:
-    git: git://github.com/caseyryan/flutter_multi_formatter.git
+  flutter_multi_formatter: ^2.0.0
 
   flutter_shared:
     git: git://github.com/sgehrman/flutter_shared
