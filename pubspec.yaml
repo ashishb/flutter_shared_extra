@@ -26,7 +26,7 @@ dependencies:
   provider: ^5.0.0
   stream_transform: ^2.0.0
   sign_in_with_apple: ^3.0.0
-  flutter_multi_formatter: ^2.0.0
+  flutter_multi_formatter: ^2.0.1
 
   flutter_shared:
     git: git://github.com/sgehrman/flutter_shared
