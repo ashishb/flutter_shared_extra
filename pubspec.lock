@@ -196,14 +196,14 @@ packages:
       name: extended_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "4.0.0"
   extended_image_library:
     dependency: transitive
     description:
       name: extended_image_library
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "3.0.0"
   extension:
     dependency: transitive
     description:
@@ -376,13 +376,13 @@ packages:
       name: flutter_plugin_android_lifecycle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   flutter_shared:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f3582ad57c52ca9e30c181c57399f45e5956af01
+      resolved-ref: f1cdf247545ac50349cd4729191076daef274a84
       url: "git://github.com/sgehrman/flutter_shared"
     source: git
     version: "1.0.1"
