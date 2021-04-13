@@ -384,7 +384,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: def31ba96bc7230ac874f5245ac7c3ea6b111ec0
+      resolved-ref: d267f655db033b531306246e57c083b9f636351c
       url: "git://github.com/sgehrman/flutter_shared"
     source: git
     version: "1.0.1"
