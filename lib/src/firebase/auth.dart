@@ -20,6 +20,9 @@ class AuthService {
   AuthService._();
   static AuthService _instance;
 
+  // only used for the disconnect
+  GoogleSignIn _googleSignIn;
+
   auth.User get currentUser => fbAuth.currentUser;
   Stream<auth.User> get userStream => fbAuth.authStateChanges();
   FirebaseFirestore get store => FirebaseFirestore.instance;
@@ -107,8 +110,10 @@ class AuthService {
     String errorString;
 
     try {
+      _googleSignIn = GoogleSignIn();
+
       final GoogleSignInAccount googleSignInAccount =
-          await GoogleSignIn().signIn();
+          await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
           await googleSignInAccount.authentication;
 
@@ -170,6 +175,10 @@ class AuthService {
   }
 
   Future<void> signOut() {
+    // Google only: allows you to login to a new google account next login
+    // otherwise you will be stuck on the first account you login with
+    _googleSignIn?.disconnect();
+
     return fbAuth.signOut();
   }
 
