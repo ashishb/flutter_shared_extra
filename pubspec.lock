@@ -14,7 +14,7 @@ packages:
       name: args
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0"
   async:
     dependency: transitive
     description:
@@ -384,7 +384,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "684925e9dc388d802141a77156345528a291e679"
+      resolved-ref: "52b7ba22f85c9226d9b695bf71c56fd89d937a2f"
       url: "git://github.com/sgehrman/flutter_shared"
     source: git
     version: "1.0.1"
@@ -394,7 +394,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.21.0+1"
+    version: "0.22.0"
   flutter_test:
     dependency: transitive
     description: flutter
@@ -630,7 +630,7 @@ packages:
       name: path_provider_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   pedantic:
     dependency: transitive
     description:
