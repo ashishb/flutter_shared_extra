@@ -94,6 +94,7 @@ class FirebaseUtils {
     @required String to,
     @required String subject,
     @required String text,
+    @required String html,
     @required String from,
   }) async {
     try {
@@ -106,6 +107,7 @@ class FirebaseUtils {
         'subject': subject,
         'from': from,
         'text': text,
+        'html': html,
       });
 
       if (resp != null && resp.data != null) {
