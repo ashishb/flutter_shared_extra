@@ -316,15 +316,15 @@ class AuthService {
   String get identity {
     String result = displayName;
 
-    if (result.isEmpty) {
+    if (Utils.isEmpty(result)) {
       result = phoneNumber;
     }
 
-    if (result.isEmpty) {
+    if (Utils.isEmpty(result)) {
       result = email;
     }
 
-    if (result.isEmpty) {
+    if (Utils.isEmpty(result)) {
       result = 'Guest';
     }
 
