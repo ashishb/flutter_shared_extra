@@ -39,7 +39,7 @@ class Document {
   }
 
   final FirebaseFirestore _store = AuthService().store;
-  DocumentReference ref;
+  DocumentReference<Map<String, dynamic>> ref;
 
   String get documentId => ref.id;
 
@@ -82,7 +82,7 @@ class Collection {
   Collection.withRef(this.ref);
 
   final FirebaseFirestore _store = AuthService().store;
-  CollectionReference ref;
+  CollectionReference<Map<String, dynamic>> ref;
 
   String path() {
     return ref.path;
@@ -117,22 +117,27 @@ class Collection {
 
   // must use add to add the timestamp automatically
   Stream<List<T>> orderedStreamData<T>({List<WhereQuery> where}) {
-    final Query query = ref.orderBy('timestamp');
+    final Query<Map<String, dynamic>> query = ref.orderBy('timestamp');
 
     if (Utils.isNotEmpty(where)) {
       final List<Stream<List<T>>> streams = [];
 
       for (final w in where) {
-        final Query tmpQuery = w.where(query);
+        final Query<Map<String, dynamic>> tmpQuery =
+            w.where(query) as Query<Map<String, dynamic>>;
 
-        streams.add(tmpQuery.snapshots().map((v) => v.docs.map((doc) {
-              return FirestoreRefs.convert(
-                T,
-                doc.data(),
-                doc.id,
-                Document.withRef(doc.reference),
-              ) as T;
-            }).toList()));
+        streams.add(
+          tmpQuery.snapshots().map(
+                (v) => v.docs.map((doc) {
+                  return FirestoreRefs.convert(
+                    T,
+                    doc.data(),
+                    doc.id,
+                    Document.withRef(doc.reference),
+                  ) as T;
+                }).toList(),
+              ),
+        );
       }
 
       Stream<List<T>> stream = streams.first;
