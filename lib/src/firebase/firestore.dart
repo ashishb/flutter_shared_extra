@@ -92,7 +92,7 @@ class Collection {
     return Document.withRef(ref.doc(path));
   }
 
-  Future<List<T?>> getData<T>() async {
+  Future<List<T>> getData<T>() async {
     final snapshots = await ref.get();
     return snapshots.docs
         .map((doc) => FirestoreRefs.convert(
