@@ -8,13 +8,13 @@ import 'package:flutter_shared/flutter_shared.dart';
 
 class ChatInput extends StatefulWidget {
   const ChatInput({
-    Key key,
-    @required this.user,
-    @required this.toUid,
+    Key? key,
+    required this.user,
+    required this.toUid,
   }) : super(key: key);
 
   final ChatUser user;
-  final String toUid;
+  final String? toUid;
 
   @override
   _ChatInputState createState() => _ChatInputState();
@@ -99,29 +99,27 @@ class _ChatInputState extends State<ChatInput> with TickerProviderStateMixin {
     );
   }
 
-  Future<void> handleImagePicker({@required bool camera}) async {
-    final PickedFile file = await ImagePicker()
+  Future<void> handleImagePicker({required bool camera}) async {
+    final PickedFile? file = await ImagePicker()
         .getImage(source: camera ? ImageSource.camera : ImageSource.gallery);
 
     if (file != null) {
       final Uint8List imageData = await file.readAsBytes();
-      if (imageData != null) {
-        final imageId = Utils.uniqueFirestoreId();
+      final imageId = Utils.uniqueFirestoreId();
 
-        final url = await ImageUrlUtils.uploadImageDataReturnUrl(
-            imageId, imageData,
-            folder: ImageUrlUtils.chatImageFolder);
+      final url = await ImageUrlUtils.uploadImageDataReturnUrl(
+          imageId, imageData,
+          folder: ImageUrlUtils.chatImageFolder);
 
-        final ChatMessage message = ChatMessage(
-          toUid: widget.toUid,
-          text: '',
-          user: widget.user,
-          image: url,
-          imageId: imageId,
-        );
+      final ChatMessage message = ChatMessage(
+        toUid: widget.toUid,
+        text: '',
+        user: widget.user,
+        image: url,
+        imageId: imageId,
+      );
 
-        await ChatMessageUtils.uploadChatMessage(message);
-      }
+      await ChatMessageUtils.uploadChatMessage(message);
     }
   }
 
@@ -199,7 +197,7 @@ class _ChatInputState extends State<ChatInput> with TickerProviderStateMixin {
     );
   }
 
-  Future<void> handleSend({@required bool fromKeyboard}) async {
+  Future<void> handleSend({required bool fromKeyboard}) async {
     String text = _textController.text;
 
     if (!fromKeyboard) {

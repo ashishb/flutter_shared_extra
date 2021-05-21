@@ -1,9 +1,8 @@
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_shared/flutter_shared.dart';
 
 class FirebaseUtils {
-  static Future<List<Map>> users({String nextPageToken}) async {
+  static Future<List<Map>?> users({String? nextPageToken}) async {
     try {
       final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
         'users',
@@ -14,7 +13,7 @@ class FirebaseUtils {
       };
 
       return callable.call<Map>(params).then((HttpsCallableResult resp) {
-        if (resp != null && resp.data != null) {
+        if (resp.data != null) {
           final Map m = resp.data as Map;
 
           if (m.listVal<Map>('list') != null) {
@@ -30,7 +29,7 @@ class FirebaseUtils {
     return null;
   }
 
-  static Future<List<String>> getSubCollections(String docPath) async {
+  static Future<List<String>?> getSubCollections(String docPath) async {
     try {
       final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
         'users',
@@ -41,7 +40,7 @@ class FirebaseUtils {
       };
 
       return callable.call<Map>(params).then((HttpsCallableResult resp) {
-        if (resp != null && resp.data != null) {
+        if (resp.data != null) {
           final respMap = resp.data as Map;
 
           final List<String> m = respMap['collections'] as List<String>;
@@ -58,9 +57,9 @@ class FirebaseUtils {
   }
 
   static Future<bool> modifyClaims({
-    @required String email,
-    @required String uid,
-    @required Map<String, bool> claims,
+    required String? email,
+    required String? uid,
+    required Map<String?, bool> claims,
   }) async {
     try {
       final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
@@ -73,7 +72,7 @@ class FirebaseUtils {
         'claims': claims,
       });
 
-      if (resp != null && resp.data != null) {
+      if (resp.data != null) {
         final respMap = resp.data as Map;
 
         if (respMap['error'] != null) {
@@ -91,11 +90,11 @@ class FirebaseUtils {
   }
 
   static Future<bool> sendEmail({
-    @required String to,
-    @required String subject,
-    @required String text,
-    @required String html,
-    @required String from,
+    required String to,
+    required String subject,
+    required String text,
+    required String html,
+    required String from,
   }) async {
     try {
       final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
@@ -110,7 +109,7 @@ class FirebaseUtils {
         'html': html,
       });
 
-      if (resp != null && resp.data != null) {
+      if (resp.data != null) {
         final respMap = resp.data as Map;
 
         if (respMap['error'] != null) {

@@ -12,7 +12,7 @@ class LoginPhoneDialog extends StatefulWidget {
 class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
   final PhoneVerifyier _phoneVerifier = PhoneVerifyier();
   final TextEditingController _smsCodeController = TextEditingController();
-  TextEditingController _phoneController;
+  TextEditingController? _phoneController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -20,12 +20,12 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
     super.initState();
 
     _phoneController = TextEditingController();
-    _phoneController.text = Preferences.loginPhone;
+    _phoneController!.text = Preferences.loginPhone!;
   }
 
   @override
   void dispose() {
-    _phoneController.dispose();
+    _phoneController!.dispose();
 
     _smsCodeController.dispose();
     super.dispose();
@@ -45,13 +45,13 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
           keyboardType: TextInputType.phone,
           controller: _phoneController,
           inputFormatters: PhoneInputUtils.inputFormatters(),
-          validator: PhoneInputUtils.validator,
+          validator: PhoneInputUtils.validator as String? Function(String?)?,
         ),
       ];
     }
 
     return <Widget>[
-      Text('A 6-digit code was sent to ${_phoneController.text}'),
+      Text('A 6-digit code was sent to ${_phoneController!.text}'),
       TextField(
         keyboardType: TextInputType.number,
         controller: _smsCodeController,
@@ -98,14 +98,14 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
           icon: const Icon(Icons.lock_open, size: 16),
           onPressed: () async {
             if (!_phoneVerifier.hasVerificationId) {
-              if (_formKey.currentState.validate()) {
-                print(formatAsPhoneNumber(_phoneController.text));
+              if (_formKey.currentState!.validate()) {
+                print(formatAsPhoneNumber(_phoneController!.text));
 
-                await _phoneVerifier.verifyPhoneNumber(_phoneController.text);
+                await _phoneVerifier.verifyPhoneNumber(_phoneController!.text);
               }
             } else {
               final SignInResult result = await AuthService().phoneSignIn(
-                  _phoneVerifier.verificationId,
+                  _phoneVerifier.verificationId!,
                   _smsCodeController.text.trim());
 
               Navigator.of(context).pop(result);
@@ -117,7 +117,7 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
   }
 }
 
-Future<SignInResult> showLoginPhoneDialog(BuildContext context) async {
+Future<SignInResult?> showLoginPhoneDialog(BuildContext context) async {
   return showGeneralDialog<SignInResult>(
     barrierColor: Colors.black.withOpacity(0.5),
     transitionBuilder: (context, a1, a2, widget) {
@@ -135,7 +135,7 @@ Future<SignInResult> showLoginPhoneDialog(BuildContext context) async {
     context: context,
     pageBuilder: (context, animation1, animation2) {
       // never gets called, but is required
-      return null;
+      return Container();
     },
   );
 }

@@ -9,8 +9,8 @@ import 'package:flutter_shared/flutter_shared.dart';
 class SignInResult {
   const SignInResult({this.user, this.errorString});
 
-  final String errorString;
-  final auth.User user;
+  final String? errorString;
+  final auth.User? user;
 }
 
 class AuthService {
@@ -18,20 +18,20 @@ class AuthService {
     return _instance ??= AuthService._();
   }
   AuthService._();
-  static AuthService _instance;
+  static AuthService? _instance;
 
   // only used for the disconnect
-  GoogleSignIn _googleSignIn;
+  GoogleSignIn? _googleSignIn;
 
-  auth.User get currentUser => fbAuth.currentUser;
-  Stream<auth.User> get userStream => fbAuth.authStateChanges();
+  auth.User? get currentUser => fbAuth.currentUser;
+  Stream<auth.User?> get userStream => fbAuth.authStateChanges();
   FirebaseFirestore get store => FirebaseFirestore.instance;
   auth.FirebaseAuth get fbAuth => auth.FirebaseAuth.instance;
 
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> emailSignIn(String email, String password) async {
-    auth.User user;
-    String errorString;
+    auth.User? user;
+    String? errorString;
 
     // you must trim the inputs, flutter is appending a tab when tab over to the password
     final trimmedEmail = StrUtils.trim(email);
@@ -71,8 +71,8 @@ class AuthService {
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> createUserWithEmail(
       String email, String password) async {
-    auth.User user;
-    String errorString;
+    auth.User? user;
+    String? errorString;
 
     // you must trim the inputs, flutter is appending a tab when tab over to the password
     final trimmedEmail = StrUtils.trim(email);
@@ -106,14 +106,14 @@ class AuthService {
 
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> googleSignIn() async {
-    auth.User user;
-    String errorString;
+    auth.User? user;
+    String? errorString;
 
     try {
       _googleSignIn = GoogleSignIn();
 
       final GoogleSignInAccount googleSignInAccount =
-          await _googleSignIn.signIn();
+          await (_googleSignIn!.signIn() as FutureOr<GoogleSignInAccount>);
       final GoogleSignInAuthentication googleAuth =
           await googleSignInAccount.authentication;
 
@@ -155,8 +155,8 @@ class AuthService {
 
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> anonLogin() async {
-    auth.User user;
-    String errorString;
+    auth.User? user;
+    String? errorString;
 
     try {
       final auth.UserCredential authResult = await fbAuth.signInAnonymously();
@@ -183,7 +183,7 @@ class AuthService {
   }
 
   bool isAnonymous() {
-    final auth.User user = currentUser;
+    final auth.User? user = currentUser;
 
     if (user != null && user.uid.isNotEmpty) {
       return user.isAnonymous;
@@ -198,7 +198,7 @@ class AuthService {
 
       return <String, dynamic>{'result': true, 'errorString': ''};
     } on auth.FirebaseAuthException catch (error) {
-      final String errorString = error.message;
+      final String? errorString = error.message;
 
       switch (error.code) {
         case 'invalid-email':
@@ -213,8 +213,8 @@ class AuthService {
   // returns a map {user: user, error: 'error message'}
   Future<SignInResult> phoneSignIn(
       String verificationId, String smsCode) async {
-    auth.User user;
-    String errorString;
+    auth.User? user;
+    String? errorString;
 
     // you must trim the inputs, flutter is appending a tab when tab over to the password
     final trimmedSmsCode = StrUtils.trim(smsCode);
@@ -270,19 +270,19 @@ class AuthService {
     );
   }
 
-  Future<bool> addClaimToUid(String uid, String claim) async {
+  Future<bool> addClaimToUid(String? uid, String? claim) async {
     return FirebaseUtils.modifyClaims(
       email: null,
       uid: uid,
-      claims: <String, bool>{claim: true},
+      claims: <String?, bool>{claim: true},
     );
   }
 
-  Future<bool> removeClaimForUid(String uid, String claim) async {
+  Future<bool> removeClaimForUid(String? uid, String? claim) async {
     return FirebaseUtils.modifyClaims(
       email: null,
       uid: uid,
-      claims: <String, bool>{claim: false},
+      claims: <String?, bool>{claim: false},
     );
   }
 
@@ -295,13 +295,13 @@ class AuthService {
   Future<List<String>> claims() async {
     final List<String> result = [];
 
-    final auth.User user = currentUser;
+    final auth.User? user = currentUser;
     if (user != null) {
       try {
         final x = await user.getIdTokenResult();
 
-        x.claims.keys.forEach((key) {
-          if (x.claims[key] == true) {
+        x.claims!.keys.forEach((key) {
+          if (x.claims![key] == true) {
             result.add(key);
           }
         });
@@ -332,9 +332,9 @@ class AuthService {
   }
 
   String get displayName {
-    String result;
+    String? result;
 
-    final auth.User user = currentUser;
+    final auth.User? user = currentUser;
     if (user != null) {
       result = user.displayName;
     }
@@ -343,9 +343,9 @@ class AuthService {
   }
 
   String get phoneNumber {
-    String result;
+    String? result;
 
-    final auth.User user = currentUser;
+    final auth.User? user = currentUser;
     if (user != null) {
       result = user.phoneNumber;
     }
@@ -354,9 +354,9 @@ class AuthService {
   }
 
   String get email {
-    String result;
+    String? result;
 
-    final auth.User user = currentUser;
+    final auth.User? user = currentUser;
     if (user != null) {
       result = user.email;
     }
@@ -365,9 +365,9 @@ class AuthService {
   }
 
   String get photoUrl {
-    String result;
+    String? result;
 
-    final auth.User user = currentUser;
+    final auth.User? user = currentUser;
     if (user != null) {
       result = user.photoURL;
     }

@@ -4,20 +4,20 @@ import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
 class AvatarContainer extends StatelessWidget {
   const AvatarContainer({
-    @required this.user,
+    required this.user,
     this.onPress,
     this.onLongPress,
     this.isUser,
   });
 
   final ChatUser user;
-  final bool isUser;
-  final Function(ChatUser) onPress;
-  final Function(ChatUser) onLongPress;
+  final bool? isUser;
+  final void Function(ChatUser)? onPress;
+  final void Function(ChatUser)? onLongPress;
 
-  ImageProvider avatarImage() {
-    if (user.avatar != null && user.avatar.isNotEmpty) {
-      return NetworkImage(user.avatar);
+  ImageProvider? avatarImage() {
+    if (user.avatar != null && user.avatar!.isNotEmpty) {
+      return NetworkImage(user.avatar!);
     }
 
     return null;
@@ -26,11 +26,19 @@ class AvatarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onPress(user),
-      onLongPress: () => onLongPress(user),
+      onTap: () {
+        if (onPress != null) {
+          onPress!(user);
+        }
+      },
+      onLongPress: () {
+        if (onLongPress != null) {
+          onLongPress!(user);
+        }
+      },
       child: CircleAvatar(
         backgroundImage: avatarImage(),
-        backgroundColor: isUser
+        backgroundColor: isUser!
             ? Utils.darken(Colors.blue, .2)
             : Utils.darken(Colors.green, .2),
         foregroundColor: Colors.white,

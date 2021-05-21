@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({
-    @required this.title,
-    @required this.name,
+    required this.title,
+    required this.name,
     this.toAdminOnly = false,
   });
 
@@ -58,7 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
       );
     }
 
-    List<WhereQuery> where;
+    List<WhereQuery>? where;
 
     if (widget.toAdminOnly) {
       where = [

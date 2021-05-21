@@ -10,7 +10,7 @@ class MessageListView extends StatefulWidget {
   const MessageListView({
     this.scrollController,
     this.messages,
-    this.user,
+    required this.user,
     this.onLongPressAvatar,
     this.onLongPressMessage,
     this.onPressAvatar,
@@ -19,15 +19,15 @@ class MessageListView extends StatefulWidget {
     this.visible,
   });
 
-  final List<ChatMessage> messages;
+  final List<ChatMessage>? messages;
   final ChatUser user;
-  final Function(ChatUser) onPressAvatar;
-  final Function(ChatUser) onLongPressAvatar;
-  final bool renderAvatarOnTop;
-  final Function(ChatMessage) onLongPressMessage;
-  final ScrollController scrollController;
-  final Function changeVisible;
-  final bool visible;
+  final void Function(ChatUser)? onPressAvatar;
+  final void Function(ChatUser)? onLongPressAvatar;
+  final bool? renderAvatarOnTop;
+  final void Function(ChatMessage)? onLongPressMessage;
+  final ScrollController? scrollController;
+  final Function? changeVisible;
+  final bool? visible;
 
   @override
   _MessageListViewState createState() => _MessageListViewState();
@@ -37,11 +37,11 @@ class _MessageListViewState extends State<MessageListView> {
   bool showDateFlag(int index) {
     bool showDate = false;
 
-    if (index == widget.messages.length - 1) {
+    if (index == widget.messages!.length - 1) {
       showDate = true;
     } else {
-      final DateTime nextDate = widget.messages[index + 1].createdAt;
-      if (nextDate.difference(widget.messages[index].createdAt).inDays != 0) {
+      final DateTime nextDate = widget.messages![index + 1].createdAt;
+      if (nextDate.difference(widget.messages![index].createdAt).inDays != 0) {
         showDate = true;
       }
     }
@@ -49,7 +49,7 @@ class _MessageListViewState extends State<MessageListView> {
     return showDate;
   }
 
-  Widget dateWidget({@required bool showDate, @required int index}) {
+  Widget dateWidget({required bool showDate, required int index}) {
     if (showDate) {
       return Container(
         decoration: BoxDecoration(
@@ -62,7 +62,7 @@ class _MessageListViewState extends State<MessageListView> {
         ),
         margin: const EdgeInsets.symmetric(vertical: 10.0),
         child: Text(
-          DateFormat('MMM dd').format(widget.messages[index].createdAt),
+          DateFormat('MMM dd').format(widget.messages![index].createdAt),
           style: const TextStyle(
             color: Colors.white,
             fontSize: 12.0,
@@ -74,8 +74,8 @@ class _MessageListViewState extends State<MessageListView> {
     return NothingWidget();
   }
 
-  Widget avatarWidget({@required int index, @required bool leftSide}) {
-    final bool isUser = widget.messages[index].user.uid == widget.user.uid;
+  Widget avatarWidget({required int index, required bool leftSide}) {
+    final bool isUser = widget.messages![index].user.uid == widget.user.uid;
     bool addAvatar = false;
 
     if (leftSide && !isUser) {
@@ -86,7 +86,7 @@ class _MessageListViewState extends State<MessageListView> {
 
     if (addAvatar) {
       return AvatarContainer(
-        user: widget.messages[index].user,
+        user: widget.messages![index].user,
         onPress: widget.onPressAvatar,
         onLongPress: widget.onLongPressAvatar,
         isUser: isUser,
@@ -110,7 +110,7 @@ class _MessageListViewState extends State<MessageListView> {
             physics: const BouncingScrollPhysics(),
             controller: widget.scrollController,
             reverse: true,
-            itemCount: widget.messages.length,
+            itemCount: widget.messages!.length,
             itemBuilder: (context, i) {
               final bool showDate = showDateFlag(i);
 
@@ -122,7 +122,7 @@ class _MessageListViewState extends State<MessageListView> {
                       dateWidget(showDate: showDate, index: i),
                       Row(
                         mainAxisAlignment:
-                            widget.messages[i].user.uid == widget.user.uid
+                            widget.messages![i].user.uid == widget.user.uid
                                 ? MainAxisAlignment.end
                                 : MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -131,7 +131,7 @@ class _MessageListViewState extends State<MessageListView> {
                           GestureDetector(
                             onLongPress: () {
                               if (widget.onLongPressMessage != null) {
-                                widget.onLongPressMessage(widget.messages[i]);
+                                widget.onLongPressMessage!(widget.messages![i]);
                               } else {
                                 showBottomSheet<dynamic>(
                                   context: context,
@@ -149,7 +149,7 @@ class _MessageListViewState extends State<MessageListView> {
                                       title: const Text('Copy to clipboard'),
                                       onTap: () {
                                         Clipboard.setData(ClipboardData(
-                                            text: widget.messages[i].text));
+                                            text: widget.messages![i].text));
                                         Navigator.pop(context);
                                       },
                                     ),
@@ -158,9 +158,9 @@ class _MessageListViewState extends State<MessageListView> {
                               }
                             },
                             child: MessageContainer(
-                              isUser: widget.messages[i].user.uid ==
+                              isUser: widget.messages![i].user.uid ==
                                   widget.user.uid,
-                              message: widget.messages[i],
+                              message: widget.messages![i],
                             ),
                           ),
                           avatarWidget(index: i, leftSide: false),

@@ -9,9 +9,9 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class UserLoginButton extends StatefulWidget {
   const UserLoginButton({
-    @required this.text,
-    @required this.icon,
-    @required this.type,
+    required this.text,
+    required this.icon,
+    required this.type,
   });
 
   final IconData icon;
@@ -23,13 +23,13 @@ class UserLoginButton extends StatefulWidget {
 }
 
 class _UserLoginButtonState extends State<UserLoginButton> {
-  void handleAuthResult(BuildContext context, SignInResult result) {
+  void handleAuthResult(BuildContext context, SignInResult? result) {
     if (result != null) {
       if (Utils.isNotEmpty(result.errorString)) {
-        Utils.showSnackbar(context, result.errorString, error: true);
+        Utils.showSnackbar(context, result.errorString!, error: true);
       }
 
-      final auth.User user = result.user;
+      final auth.User? user = result.user;
 
       if (user != null) {
         // save in prefs.
@@ -45,7 +45,7 @@ class _UserLoginButtonState extends State<UserLoginButton> {
   }
 
   Future<void> loginWithEmail() async {
-    final LoginData data = await showEmailLoginDialog(context);
+    final LoginData? data = await showEmailLoginDialog(context);
 
     if (data != null) {
       final AuthService auth = AuthService();

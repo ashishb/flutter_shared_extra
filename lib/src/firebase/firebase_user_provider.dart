@@ -7,20 +7,20 @@ class FirebaseUserProvider extends ChangeNotifier {
     _setup();
   }
 
-  auth.User _user;
+  auth.User? _user;
   final AuthService _auth = AuthService();
   bool _initalized = false;
   bool _isAdmin = false;
 
   bool get isAdmin => _isAdmin;
   bool get hasUser => _user != null;
-  String get userId => hasUser ? _user.uid : '';
+  String get userId => hasUser ? _user!.uid : '';
 
   bool get initalized => _initalized;
 
   // work around for reload
   Future<void> reload() async {
-    await _user.reload();
+    await _user!.reload();
     _user = _auth.currentUser;
 
     notifyListeners();
@@ -46,20 +46,20 @@ class FirebaseUserProvider extends ChangeNotifier {
     return _auth.photoUrl;
   }
 
-  Future<void> updateProfile(String displayName, String photoURL) async {
-    await _user.updateProfile(displayName: displayName, photoURL: photoURL);
+  Future<void> updateProfile(String displayName, String? photoURL) async {
+    await _user!.updateProfile(displayName: displayName, photoURL: photoURL);
     await reload();
   }
 
   Future<void> updateEmail(String email) async {
-    await _user.updateEmail(email);
+    await _user!.updateEmail(email);
     await reload();
   }
 
   Future<void> _setup() async {
-    final Stream<auth.User> stream = _auth.userStream;
+    final Stream<auth.User?> stream = _auth.userStream;
 
-    await stream.forEach((auth.User user) async {
+    await stream.forEach((auth.User? user) async {
       _user = user;
 
       // this checks for user == null

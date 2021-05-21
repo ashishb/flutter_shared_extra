@@ -9,8 +9,8 @@ import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 class WhereQuery {
   WhereQuery(this.fromUid, this.toUid);
 
-  String fromUid;
-  String toUid;
+  String? fromUid;
+  String? toUid;
 
   Query where(Query query) {
     Query result = query;
@@ -39,7 +39,7 @@ class Document {
   }
 
   final FirebaseFirestore _store = AuthService().store;
-  DocumentReference<Map<String, dynamic>> ref;
+  late DocumentReference<Map<String, dynamic>> ref;
 
   String get documentId => ref.id;
 
@@ -82,7 +82,7 @@ class Collection {
   Collection.withRef(this.ref);
 
   final FirebaseFirestore _store = AuthService().store;
-  CollectionReference<Map<String, dynamic>> ref;
+  late CollectionReference<Map<String, dynamic>> ref;
 
   String path() {
     return ref.path;
@@ -92,7 +92,7 @@ class Collection {
     return Document.withRef(ref.doc(path));
   }
 
-  Future<List<T>> getData<T>() async {
+  Future<List<T?>> getData<T>() async {
     final snapshots = await ref.get();
     return snapshots.docs
         .map((doc) => FirestoreRefs.convert(
@@ -100,7 +100,7 @@ class Collection {
               doc.data(),
               doc.id,
               Document.withRef(doc.reference),
-            ) as T)
+            ) as T?)
         .toList();
   }
 
@@ -116,13 +116,13 @@ class Collection {
   }
 
   // must use add to add the timestamp automatically
-  Stream<List<T>> orderedStreamData<T>({List<WhereQuery> where}) {
+  Stream<List<T?>> orderedStreamData<T>({List<WhereQuery>? where}) {
     final Query<Map<String, dynamic>> query = ref.orderBy('timestamp');
 
     if (Utils.isNotEmpty(where)) {
-      final List<Stream<List<T>>> streams = [];
+      final List<Stream<List<T?>>> streams = [];
 
-      for (final w in where) {
+      for (final w in where!) {
         final Query<Map<String, dynamic>> tmpQuery =
             w.where(query) as Query<Map<String, dynamic>>;
 
@@ -134,23 +134,24 @@ class Collection {
                     doc.data(),
                     doc.id,
                     Document.withRef(doc.reference),
-                  ) as T;
+                  ) as T?;
                 }).toList(),
               ),
         );
       }
 
-      Stream<List<T>> stream = streams.first;
+      Stream<List<T?>> stream = streams.first;
 
       if (streams.length > 1) {
-        stream = stream.combineLatest<List<T>, List<T>>(streams[1],
+        stream = stream.combineLatest<List<T?>, List<T>>(
+            streams[1],
             (List<T> a, List<T> b) {
-          final List<T> result = [];
-          result.addAll(a);
-          result.addAll(b);
+              final List<T> result = [];
+              result.addAll(a);
+              result.addAll(b);
 
-          return result;
-        });
+              return result;
+            } as FutureOr<List<T>> Function(List<T?>, List<T?>));
       }
 
       return stream.asBroadcastStream();
@@ -161,7 +162,7 @@ class Collection {
                 doc.data(),
                 doc.id,
                 Document.withRef(doc.reference),
-              ) as T)
+              ) as T?)
           .toList());
     }
   }
@@ -196,7 +197,7 @@ class Collection {
 class UserData {
   UserData({this.collection});
 
-  final String collection;
+  final String? collection;
   final AuthService authService = AuthService();
 
   Stream<T> documentStream<T>() {
@@ -205,13 +206,13 @@ class UserData {
         final Document doc = Document('$collection/${user.uid}');
         return doc.streamData<T>();
       } else {
-        return Stream<T>.value(null);
+        return Stream<T>.empty();
       }
     });
   }
 
-  Future<T> getDocument<T>() async {
-    final auth.User user = authService.currentUser;
+  Future<T?> getDocument<T>() async {
+    final auth.User? user = authService.currentUser;
 
     if (user != null && user.uid.isNotEmpty) {
       final Document doc = Document('$collection/${user.uid}');
@@ -222,7 +223,7 @@ class UserData {
   }
 
   Future<void> upsert(Map<String, dynamic> data) async {
-    final auth.User user = authService.currentUser;
+    final auth.User? user = authService.currentUser;
 
     if (user != null && user.uid.isNotEmpty) {
       final Document ref = Document('$collection/${user.uid}');

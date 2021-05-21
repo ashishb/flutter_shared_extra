@@ -5,7 +5,7 @@ import 'package:flutter_shared_extra/src/firebase/auth.dart';
 class UserDetailsScreen extends StatefulWidget {
   const UserDetailsScreen({this.map});
 
-  final Map<String, dynamic> map;
+  final Map<String, dynamic>? map;
 
   @override
   _UserDetailsScreenState createState() => _UserDetailsScreenState();
@@ -23,7 +23,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           Expanded(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              child: JsonViewerWidget(widget.map),
+              child: JsonViewerWidget(widget.map!),
             ),
           ),
           _userClaims(),
@@ -33,7 +33,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   }
 
   Widget _userClaims() {
-    final uid = widget.map['uid'] as String;
+    final uid = widget.map!['uid'] as String?;
 
     // Snackbar needed a context
     return Builder(

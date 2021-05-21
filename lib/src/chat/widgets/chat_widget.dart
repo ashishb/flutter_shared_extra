@@ -5,10 +5,10 @@ import 'package:flutter_shared_extra/src/chat/widgets/message_listview.dart';
 
 class ChatWidget extends StatefulWidget {
   const ChatWidget({
-    Key key,
-    @required this.messages,
-    @required this.user,
-    @required this.toUid,
+    Key? key,
+    required this.messages,
+    required this.user,
+    required this.toUid,
     this.onLongPressAvatar,
     this.onLongPressMessage,
     this.onPressAvatar,
@@ -16,17 +16,17 @@ class ChatWidget extends StatefulWidget {
 
   final List<ChatMessage> messages;
   final ChatUser user;
-  final String toUid;
-  final Function(ChatUser) onPressAvatar;
-  final Function(ChatUser) onLongPressAvatar;
-  final Function(ChatMessage) onLongPressMessage;
+  final String? toUid;
+  final Function(ChatUser)? onPressAvatar;
+  final Function(ChatUser)? onLongPressAvatar;
+  final Function(ChatMessage)? onLongPressMessage;
 
   @override
   ChatWidgetState createState() => ChatWidgetState();
 }
 
 class ChatWidgetState extends State<ChatWidget> {
-  ScrollController scrollController;
+  ScrollController? scrollController;
 
   @override
   void initState() {

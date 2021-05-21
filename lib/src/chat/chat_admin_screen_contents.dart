@@ -6,8 +6,8 @@ import 'package:flutter_shared_extra/src/chat/chat_screen_contents.dart';
 
 class ChatAdminScreenContents extends StatefulWidget {
   const ChatAdminScreenContents({
-    @required this.title,
-    @required this.name,
+    required this.title,
+    required this.name,
   });
 
   final String title;
@@ -19,7 +19,7 @@ class ChatAdminScreenContents extends StatefulWidget {
 }
 
 class _ChatAdminScreenContentsState extends State<ChatAdminScreenContents> {
-  final Stream<List<ChatMessage>> stream = ChatMessageUtils.stream(
+  final Stream<List<ChatMessage?>> stream = ChatMessageUtils.stream(
     where: [WhereQuery('', 'admin')],
   );
 
@@ -50,7 +50,7 @@ class _ChatAdminScreenContentsState extends State<ChatAdminScreenContents> {
                 final ChatMessage chat = resources[index];
 
                 final String title =
-                    'From: ${chat.user.uid} message: ${chat.text.substring(0, math.min(10, chat.text.length))}';
+                    'From: ${chat.user.uid} message: ${chat.text!.substring(0, math.min(10, chat.text!.length))}';
 
                 return ListTile(
                   title: Text(title),

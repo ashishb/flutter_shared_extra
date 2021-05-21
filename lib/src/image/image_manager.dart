@@ -20,7 +20,7 @@ class ImageManagerScreen extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return GridTile(
           footer: Text(
-            imageUrls[index].name,
+            imageUrls[index].name!,
             textAlign: TextAlign.center,
           ),
           child: Stack(
@@ -54,13 +54,13 @@ class ImageManagerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
+      body: StreamBuilder<List<ImageUrl>>(
         stream: Collection('images').streamData<ImageUrl>(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final List<ImageUrl> imageUrls = snapshot.data as List<ImageUrl>;
+            final List<ImageUrl>? imageUrls = snapshot.data;
 
-            return _buildGrid(context, imageUrls);
+            return _buildGrid(context, imageUrls ?? []);
           }
 
           return LoadingWidget();

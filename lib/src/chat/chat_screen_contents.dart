@@ -10,16 +10,16 @@ import 'package:flutter_shared/flutter_shared.dart';
 
 class ChatScreenContents extends StatefulWidget {
   const ChatScreenContents({
-    @required this.stream,
+    required this.stream,
     this.isAdmin = false,
-    @required this.toUid,
-    @required this.title,
-    @required this.name,
+    required this.toUid,
+    required this.title,
+    required this.name,
   });
 
-  final Stream<List<ChatMessage>> stream;
+  final Stream<List<ChatMessage?>> stream;
   final bool isAdmin;
-  final String toUid;
+  final String? toUid;
   final String title;
   final String name;
 
@@ -31,7 +31,7 @@ class _ChatScreenContentsState extends State<ChatScreenContents> {
   final GlobalKey<ChatWidgetState> _chatWidgetKey =
       GlobalKey<ChatWidgetState>();
 
-  StreamSubscription<List<ChatMessage>> _subscription;
+  StreamSubscription<List<ChatMessage?>>? _subscription;
 
   @override
   void initState() {
@@ -60,7 +60,7 @@ class _ChatScreenContentsState extends State<ChatScreenContents> {
     super.dispose();
   }
 
-  ScrollController get getScrollController {
+  ScrollController? get getScrollController {
     return _chatWidgetKey.currentState?.scrollController;
   }
 
@@ -69,7 +69,7 @@ class _ChatScreenContentsState extends State<ChatScreenContents> {
 
     _subscription = widget.stream.listen(
       (data) {
-        SchedulerBinding.instance.addPostFrameCallback((_) {
+        SchedulerBinding.instance!.addPostFrameCallback((_) {
           final scrollController = getScrollController;
           if (scrollController != null) {
             if (firstTime) {
@@ -100,10 +100,8 @@ class _ChatScreenContentsState extends State<ChatScreenContents> {
   }
 
   void _unsubscribe() {
-    if (_subscription != null) {
-      _subscription.cancel();
-      _subscription = null;
-    }
+    _subscription?.cancel();
+    _subscription = null;
   }
 
   IconButton _scrollToBottomButton() {
@@ -123,7 +121,7 @@ class _ChatScreenContentsState extends State<ChatScreenContents> {
     final userProvider =
         Provider.of<FirebaseUserProvider>(context, listen: false);
 
-    if (userProvider != null) {
+    if (userProvider.hasUser) {
       return ChatUser(
         name: userProvider.displayName,
         email: userProvider.email,
@@ -161,10 +159,10 @@ class _ChatScreenContentsState extends State<ChatScreenContents> {
           }
 
           if (hasData) {
-            List<ChatMessage> messages = snap.data as List<ChatMessage>;
+            List<ChatMessage>? messages = snap.data as List<ChatMessage>?;
 
             if (Utils.isNotEmpty(messages)) {
-              messages.sort((ChatMessage a, ChatMessage b) {
+              messages!.sort((ChatMessage a, ChatMessage b) {
                 return a.createdAt.compareTo(b.createdAt);
               });
               messages = messages.reversed.take(100).toList();

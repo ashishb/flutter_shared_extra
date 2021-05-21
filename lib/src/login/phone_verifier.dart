@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
 class PhoneVerifyier extends ChangeNotifier {
-  String _verificationId;
-  String _errorMessage;
+  String? _verificationId;
+  String? _errorMessage;
 
   final auth.FirebaseAuth _auth = AuthService().fbAuth;
 
   bool get hasVerificationId =>
-      _verificationId != null && _verificationId.isNotEmpty;
-  String get verificationId => _verificationId;
-  String get errorMessage => _errorMessage;
+      _verificationId != null && _verificationId!.isNotEmpty;
+  String? get verificationId => _verificationId;
+  String? get errorMessage => _errorMessage;
 
   // PhoneVerificationCompleted
   Future<void> _verificationCompleted(
@@ -53,7 +53,7 @@ class PhoneVerifyier extends ChangeNotifier {
   }
 
   // PhoneCodeSent
-  void _codeSent(String verificationId, [int forceResendingToken]) {
+  void _codeSent(String verificationId, [int? forceResendingToken]) {
     _verificationId = verificationId;
 
     notifyListeners();

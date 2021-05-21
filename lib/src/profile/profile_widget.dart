@@ -64,17 +64,17 @@ class ProfileWidget extends StatelessWidget {
             ThemeButton(
               title: 'Edit',
               onPressed: () async {
-                final ProfileData data =
+                final ProfileData? data =
                     await showEmailEditProfileDialog(context);
 
                 if (data != null) {
                   try {
-                    if (data.name != null && data.name.isNotEmpty) {
+                    if (Utils.isNotEmpty(data.name)) {
                       await userProvider.updateProfile(
                           data.name, data.photoUrl);
                     }
 
-                    if (data.email != null && data.email.isNotEmpty) {
+                    if (Utils.isNotEmpty(data.email)) {
                       await userProvider.updateEmail(data.email);
                     }
                   } catch (error) {

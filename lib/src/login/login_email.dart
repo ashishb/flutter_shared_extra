@@ -22,8 +22,8 @@ class _LoginDialogState extends State<LoginDialog> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   bool _autovalidate = false;
-  String _initialValue;
-  String _initialPassword;
+  String? _initialValue;
+  String? _initialPassword;
   final FocusNode _passwordFocus = FocusNode();
   final FocusNode _emailFocus = FocusNode();
   int sentResetEmail = 0;
@@ -38,8 +38,8 @@ class _LoginDialogState extends State<LoginDialog> {
   }
 
   void _doSubmit() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
 
       Navigator.of(context).pop(_data);
     } else {
@@ -64,10 +64,8 @@ class _LoginDialogState extends State<LoginDialog> {
         break;
       case 1:
         return 'Email sent to: ${_data.email}';
-        break;
       case 2:
         return 'Email is invalid';
-        break;
     }
 
     return 'Forgot Password?';
@@ -121,8 +119,8 @@ class _LoginDialogState extends State<LoginDialog> {
 
                   return 'Please enter your email address';
                 },
-                onSaved: (String value) {
-                  _data.email = value.trim();
+                onSaved: (String? value) {
+                  _data.email = value!.trim();
                 },
               ),
               TextFormField(
@@ -151,13 +149,13 @@ class _LoginDialogState extends State<LoginDialog> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter your password';
                   }
                   return null;
                 },
-                onSaved: (String value) {
-                  _data.password = value.trim();
+                onSaved: (String? value) {
+                  _data.password = value!.trim();
                 },
               ),
             ],
@@ -168,7 +166,7 @@ class _LoginDialogState extends State<LoginDialog> {
           padding: const EdgeInsets.only(top: 10, bottom: 4),
           child: InkWell(
             onTap: () {
-              _formKey.currentState.save();
+              _formKey.currentState!.save();
 
               if (StrUtils.isEmailValid(_data.email)) {
                 AuthService().sendPasswordResetEmail(_data.email);
@@ -202,7 +200,7 @@ class _LoginDialogState extends State<LoginDialog> {
   }
 }
 
-Future<LoginData> showEmailLoginDialog(BuildContext context) async {
+Future<LoginData?> showEmailLoginDialog(BuildContext context) async {
   return showGeneralDialog<LoginData>(
     barrierColor: Colors.black.withOpacity(0.5),
     transitionBuilder: (context, a1, a2, widget) {
@@ -220,7 +218,7 @@ Future<LoginData> showEmailLoginDialog(BuildContext context) async {
     context: context,
     pageBuilder: (context, animation1, animation2) {
       // never gets called, but is required
-      return null;
+      return Container();
     },
   );
 }

@@ -16,21 +16,19 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
   final _formKey = GlobalKey<FormState>();
   bool _autovalidate = false;
 
-  Future<void> handleImagePicker({@required bool camera}) async {
-    final PickedFile file = await ImagePicker()
+  Future<void> handleImagePicker({required bool camera}) async {
+    final PickedFile? file = await ImagePicker()
         .getImage(source: camera ? ImageSource.camera : ImageSource.gallery);
 
     if (file != null) {
       final Uint8List imageData = await file.readAsBytes();
-      if (imageData != null) {
-        final imageId = Utils.uniqueFirestoreId();
+      final imageId = Utils.uniqueFirestoreId();
 
-        final url = await ImageUrlUtils.uploadImageDataReturnUrl(
-            imageId, imageData,
-            folder: ImageUrlUtils.chatImageFolder);
+      final url = await ImageUrlUtils.uploadImageDataReturnUrl(
+          imageId, imageData,
+          folder: ImageUrlUtils.chatImageFolder);
 
-        _data.photoUrl = url;
-      }
+      _data.photoUrl = url;
     }
   }
 
@@ -65,14 +63,14 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                   hintText: 'Name',
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter your name';
                   }
 
                   return null;
                 },
-                onSaved: (String value) {
-                  _data.name = value.trim();
+                onSaved: (String? value) {
+                  _data.name = value!.trim();
                 },
               ),
               TextFormField(
@@ -95,8 +93,8 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
 
                   return 'Please enter your email address';
                 },
-                onSaved: (String value) {
-                  _data.email = value.trim();
+                onSaved: (String? value) {
+                  _data.email = value!.trim();
                 },
               ),
             ],
@@ -131,8 +129,8 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
         ThemeButton(
           title: 'Save',
           onPressed: () {
-            if (_formKey.currentState.validate()) {
-              _formKey.currentState.save();
+            if (_formKey.currentState!.validate()) {
+              _formKey.currentState!.save();
 
               Navigator.of(context).pop(_data);
             } else {
@@ -147,7 +145,7 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
   }
 }
 
-Future<ProfileData> showEmailEditProfileDialog(BuildContext context) async {
+Future<ProfileData?> showEmailEditProfileDialog(BuildContext context) async {
   return showDialog<ProfileData>(
     context: context,
     builder: (BuildContext context) {
@@ -159,7 +157,7 @@ Future<ProfileData> showEmailEditProfileDialog(BuildContext context) async {
 class ProfileData {
   String email = '';
   String name = '';
-  String photoUrl;
+  String? photoUrl;
 
   @override
   String toString() {

@@ -16,9 +16,9 @@ class ImageUrl extends Serializable {
     );
   }
 
-  final String id;
-  final String name;
-  final String url;
+  final String? id;
+  final String? name;
+  final String? url;
 
   @override
   Map<String, dynamic> toMap({bool types = false}) {
@@ -94,13 +94,13 @@ class ImageUrlUtils {
     Uint8List imageData, {
     bool saveAsJpg = true,
     int maxWidth = 1024,
-    String folder,
+    String? folder,
   }) async {
     final Reference firebaseStorageRef = FirebaseStorage.instance
         .ref()
         .child(folder != null ? '$folder/$imageName' : imageName);
 
-    img.Image image = img.decodeImage(imageData);
+    img.Image image = img.decodeImage(imageData)!;
 
     // shrink image
     if (image.width > maxWidth) {
@@ -124,11 +124,11 @@ class ImageUrlUtils {
     return url;
   }
 
-  static Future<void> deleteImageStorage(String imageId,
-      [String folder]) async {
+  static Future<void> deleteImageStorage(String? imageId,
+      [String? folder]) async {
     final Reference firebaseStorageRef = FirebaseStorage.instance
         .ref()
-        .child(folder != null ? '$folder/$imageId' : imageId);
+        .child(folder != null ? '$folder/$imageId' : imageId!);
 
     return firebaseStorageRef.delete();
   }

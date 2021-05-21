@@ -8,7 +8,7 @@ import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadData {
-  String url = '';
+  String? url = '';
   String name = '';
 
   @override
@@ -25,21 +25,21 @@ class UploadDialog extends StatefulWidget {
 class _UploadDialogState extends State<UploadDialog> {
   final UploadData _data = UploadData();
   final _formKey = GlobalKey<FormState>();
-  String _imageUrl;
-  File _imageFile;
-  bool _saveAsJpg = true;
+  String? _imageUrl;
+  File? _imageFile;
+  bool? _saveAsJpg = true;
 
   Widget imageWell(BuildContext context) {
-    Widget child;
+    Widget? child;
 
-    if (_imageUrl != null && _imageUrl.isNotEmpty) {
+    if (_imageUrl != null && _imageUrl!.isNotEmpty) {
       child = SuperImage(
         SuperImageSource(url: _imageUrl),
         fit: BoxFit.contain,
         enableViewer: true,
       );
     } else if (_imageFile != null) {
-      child = ExtendedImage.file(_imageFile, fit: BoxFit.contain);
+      child = ExtendedImage.file(_imageFile!, fit: BoxFit.contain);
     }
 
     return Stack(
@@ -88,8 +88,8 @@ class _UploadDialogState extends State<UploadDialog> {
     }
   }
 
-  Future<String> _uploadImage(BuildContext context, String filename) async {
-    if (_imageUrl != null && _imageUrl.isNotEmpty) {
+  Future<String?> _uploadImage(BuildContext context, String filename) async {
+    if (_imageUrl != null && _imageUrl!.isNotEmpty) {
       return _uploadImageUrl(context, filename);
     } else if (_imageFile != null) {
       return _uploadFileContents(context, filename);
@@ -98,13 +98,13 @@ class _UploadDialogState extends State<UploadDialog> {
     return null;
   }
 
-  Future<String> _uploadImageUrl(BuildContext context, String filename) async {
-    final Uint8List imageData = await getNetworkImageData(_imageUrl);
+  Future<String?> _uploadImageUrl(BuildContext context, String filename) async {
+    final Uint8List? imageData = await getNetworkImageData(_imageUrl!);
 
     if (imageData != null) {
       final String url = await ImageUrlUtils.uploadImageData(
           filename, imageData,
-          saveAsJpg: _saveAsJpg);
+          saveAsJpg: _saveAsJpg!);
 
       return url;
     }
@@ -112,13 +112,13 @@ class _UploadDialogState extends State<UploadDialog> {
     return null;
   }
 
-  Future<String> _uploadFileContents(
+  Future<String?> _uploadFileContents(
       BuildContext context, String filename) async {
-    final Uint8List imageData = await _imageFile.readAsBytes();
+    final Uint8List? imageData = await _imageFile?.readAsBytes();
     if (imageData != null) {
       final String url = await ImageUrlUtils.uploadImageData(
           filename, imageData,
-          saveAsJpg: _saveAsJpg);
+          saveAsJpg: _saveAsJpg!);
 
       return url;
     }
@@ -158,7 +158,7 @@ class _UploadDialogState extends State<UploadDialog> {
                     suffixIcon: IconButton(
                         icon: const Icon(Icons.cloud_download),
                         onPressed: () {
-                          _formKey.currentState.save();
+                          _formKey.currentState!.save();
 
                           setState(() {
                             _imageUrl = _data.url;
@@ -177,20 +177,20 @@ class _UploadDialogState extends State<UploadDialog> {
                   helperText: 'Name the image',
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Name cannot be blank';
                   }
                   return null;
                 },
-                onSaved: (String value) {
-                  _data.name = value.trim();
+                onSaved: (String? value) {
+                  _data.name = value!.trim();
                 },
               ),
               CheckboxListTile(
                 title: const Text('Save in JPG format'),
                 value: _saveAsJpg,
                 controlAffinity: ListTileControlAffinity.leading,
-                onChanged: (bool value) {
+                onChanged: (bool? value) {
                   setState(() {
                     _saveAsJpg = value;
                   });
@@ -206,8 +206,8 @@ class _UploadDialogState extends State<UploadDialog> {
           title: 'Upload',
           icon: const Icon(Icons.cloud_upload, size: 16),
           onPressed: () async {
-            if (_formKey.currentState.validate()) {
-              _formKey.currentState.save();
+            if (_formKey.currentState!.validate()) {
+              _formKey.currentState!.save();
 
               _data.url = await _uploadImage(context, _data.name);
               if (Utils.isNotEmpty(_data.url)) {
@@ -223,7 +223,7 @@ class _UploadDialogState extends State<UploadDialog> {
   }
 }
 
-Future<UploadData> showImageUploadDialog(BuildContext context) async {
+Future<UploadData?> showImageUploadDialog(BuildContext context) async {
   return showDialog<UploadData>(
     context: context,
     builder: (BuildContext context) {

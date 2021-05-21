@@ -4,11 +4,11 @@ typedef FirestoreRefConverter = dynamic Function(
     Type t, Map<String, dynamic> data, String id, Document document);
 
 class FirestoreRefs {
-  static FirestoreRefConverter converter;
+  static FirestoreRefConverter? converter;
 
   static dynamic convert(
     Type t,
-    Map<String, dynamic> data,
+    Map<String, dynamic>? data,
     String id,
     Document document,
   ) {
@@ -24,7 +24,7 @@ class FirestoreRefs {
       return ChatMessage.fromMap(data);
     } else {
       if (converter != null) {
-        return converter(t, data, id, document);
+        return converter!(t, data, id, document);
       }
     }
   }

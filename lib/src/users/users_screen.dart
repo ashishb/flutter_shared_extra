@@ -9,7 +9,7 @@ class UsersScreen extends StatefulWidget {
 }
 
 class _UsersScreenState extends State<UsersScreen> {
-  Future<List<Map>> _future;
+  Future<List<Map>?>? _future;
 
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _UsersScreenState extends State<UsersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Users')),
-      body: FutureBuilder<List<Map>>(
+      body: FutureBuilder<List<Map>?>(
         future: _future,
         builder: (context, snap) {
           bool hasData = false;
@@ -37,7 +37,7 @@ class _UsersScreenState extends State<UsersScreen> {
           }
 
           if (hasData) {
-            final List<Map> list = snap.data;
+            final List<Map> list = snap.data!;
 
             return ListView.separated(
               itemBuilder: (context, index) {

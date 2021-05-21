@@ -9,7 +9,7 @@ class UserLoginScreen extends StatefulWidget {
     this.anonymousLogin = true,
   });
 
-  final String title;
+  final String? title;
   final bool anonymousLogin;
 
   @override

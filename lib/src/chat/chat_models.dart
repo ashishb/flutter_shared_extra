@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
@@ -17,18 +16,18 @@ class ChatUser {
     avatar = json.strVal('avatar');
   }
 
-  String uid;
-  String name;
-  String email;
-  String avatar;
+  String? uid;
+  String? name;
+  String? email;
+  String? avatar;
 
   String get initials {
     String result = '?';
 
-    if (name != null && name.isNotEmpty) {
-      result = name[0];
+    if (name != null && name!.isNotEmpty) {
+      result = name![0];
 
-      final List<String> names = name.split(' ');
+      final List<String> names = name!.split(' ');
       if (names.length > 1) {
         final String lastName = names.last;
 
@@ -36,11 +35,11 @@ class ChatUser {
           result += lastName[0];
         }
       }
-    } else if (email != null && email.isNotEmpty) {
-      result = email[0];
+    } else if (email != null && email!.isNotEmpty) {
+      result = email![0];
 
-      if (email.length > 1) {
-        result += email[1];
+      if (email!.length > 1) {
+        result += email![1];
       }
     }
 
@@ -63,13 +62,13 @@ class ChatUser {
 
 class ChatMessage extends Serializable {
   ChatMessage({
-    @required this.text,
-    @required this.user,
-    @required this.toUid,
+    required this.text,
+    required this.user,
+    required this.toUid,
     this.id,
     this.image,
     this.imageId,
-    DateTime createdAt,
+    DateTime? createdAt,
   }) {
     this.createdAt = createdAt ?? DateTime.now();
   }
@@ -80,17 +79,17 @@ class ChatMessage extends Serializable {
     image = json.strVal('image');
     imageId = json.strVal('imageId');
     createdAt = DateTime.fromMillisecondsSinceEpoch(json.intVal('createdAt'));
-    user = ChatUser.fromJson(json.mapVal<dynamic, dynamic>('user'));
+    user = ChatUser.fromJson(json.mapVal<dynamic, dynamic>('user')!);
     toUid = json.strVal('toUid');
   }
 
-  String text;
-  DateTime createdAt;
-  ChatUser user;
-  String toUid;
-  String image;
-  String imageId;
-  String id;
+  String? text;
+  late DateTime createdAt;
+  late ChatUser user;
+  String? toUid;
+  String? image;
+  String? imageId;
+  String? id;
 
   @override
   Map<String, dynamic> toMap({bool types = false}) {
@@ -117,8 +116,8 @@ class ChatMessage extends Serializable {
 }
 
 class ChatMessageUtils {
-  static Stream<List<ChatMessage>> stream({
-    List<WhereQuery> where,
+  static Stream<List<ChatMessage?>> stream({
+    List<WhereQuery>? where,
   }) {
     final c = Collection('messages');
 
@@ -131,7 +130,7 @@ class ChatMessageUtils {
     return c.orderedStreamData();
   }
 
-  static Future<List<ChatMessage>> getData() {
+  static Future<List<ChatMessage?>> getData() {
     return Collection('messages').getData<ChatMessage>();
   }
 
@@ -149,7 +148,7 @@ class ChatMessageUtils {
     }
   }
 
-  static Future<bool> deleteChatMessage(String id) async {
+  static Future<bool> deleteChatMessage(String? id) async {
     final doc = Document('messages/$id');
 
     try {
@@ -170,21 +169,21 @@ class ChatMessageUtils {
   }
 
   static Future<bool> deleteMessagesFromStream(
-      Stream<List<ChatMessage>> chatStream) async {
-    final List<ChatMessage> list = await chatStream.first;
+      Stream<List<ChatMessage?>> chatStream) async {
+    final List<ChatMessage?> list = await chatStream.first;
 
-    for (final ChatMessage chat in list) {
-      await deleteChatMessage(chat.id);
+    for (final ChatMessage? chat in list) {
+      await deleteChatMessage(chat!.id);
     }
 
     return true;
   }
 
   static Future<bool> deleteChatMessages() async {
-    final List<ChatMessage> list = await getData();
+    final List<ChatMessage?> list = await getData();
 
-    await Future.forEach(list, (ChatMessage item) {
-      if (Utils.isNotEmpty(item.imageId)) {
+    await Future.forEach(list, (ChatMessage? item) {
+      if (Utils.isNotEmpty(item!.imageId)) {
         ImageUrlUtils.deleteImageStorage(
             item.imageId, ImageUrlUtils.chatImageFolder);
       }
