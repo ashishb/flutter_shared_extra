@@ -49,7 +49,7 @@ class Document {
           v.data(),
           documentId,
           Document.withRef(v.reference),
-        ) as T);
+        ) as T?);
   }
 
   Stream<T> streamData<T>() {
