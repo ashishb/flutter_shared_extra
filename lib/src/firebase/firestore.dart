@@ -92,7 +92,7 @@ class Collection {
     return Document.withRef(ref.doc(path));
   }
 
-  Future<List<T?>> getData<T>() async {
+  Future<List<T>> getData<T>() async {
     final snapshots = await ref.get();
     return snapshots.docs
         .map((doc) => FirestoreRefs.convert(
@@ -100,7 +100,7 @@ class Collection {
               doc.data(),
               doc.id,
               Document.withRef(doc.reference),
-            ) as T?)
+            ) as T)
         .toList();
   }
 
@@ -116,11 +116,11 @@ class Collection {
   }
 
   // must use add to add the timestamp automatically
-  Stream<List<T?>> orderedStreamData<T>({List<WhereQuery>? where}) {
+  Stream<List<T>> orderedStreamData<T>({List<WhereQuery>? where}) {
     final Query<Map<String, dynamic>> query = ref.orderBy('timestamp');
 
     if (Utils.isNotEmpty(where)) {
-      final List<Stream<List<T?>>> streams = [];
+      final List<Stream<List<T>>> streams = [];
 
       for (final w in where!) {
         final Query<Map<String, dynamic>> tmpQuery =
@@ -134,24 +134,23 @@ class Collection {
                     doc.data(),
                     doc.id,
                     Document.withRef(doc.reference),
-                  ) as T?;
+                  ) as T;
                 }).toList(),
               ),
         );
       }
 
-      Stream<List<T?>> stream = streams.first;
+      Stream<List<T>> stream = streams.first;
 
       if (streams.length > 1) {
-        stream = stream.combineLatest<List<T?>, List<T>>(
-            streams[1],
+        stream = stream.combineLatest<List<T>, List<T>>(streams[1],
             (List<T> a, List<T> b) {
-              final List<T> result = [];
-              result.addAll(a);
-              result.addAll(b);
+          final List<T> result = [];
+          result.addAll(a);
+          result.addAll(b);
 
-              return result;
-            } as FutureOr<List<T>> Function(List<T?>, List<T?>));
+          return result;
+        });
       }
 
       return stream.asBroadcastStream();
@@ -162,7 +161,7 @@ class Collection {
                 doc.data(),
                 doc.id,
                 Document.withRef(doc.reference),
-              ) as T?)
+              ) as T)
           .toList());
     }
   }
@@ -211,14 +210,14 @@ class UserData {
     });
   }
 
-  Future<T?> getDocument<T>() async {
+  Future<T> getDocument<T>() async {
     final auth.User? user = authService.currentUser;
 
-    if (user != null && user.uid.isNotEmpty) {
-      final Document doc = Document('$collection/${user.uid}');
+    if (Utils.isNotEmpty(user?.uid)) {
+      final Document doc = Document('$collection/${user!.uid}');
       return doc.getData<T>();
     } else {
-      return null;
+      return Future.value(null);
     }
   }
 
