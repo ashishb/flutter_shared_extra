@@ -152,10 +152,10 @@ class ChatMessageUtils {
     final doc = Document('messages/$id');
 
     try {
-      final ChatMessage message = await doc.getData<ChatMessage>();
-      if (Utils.isNotEmpty(message.imageId)) {
+      final ChatMessage? message = await doc.getData<ChatMessage>();
+      if (Utils.isNotEmpty(message?.imageId)) {
         await ImageUrlUtils.deleteImageStorage(
-            message.imageId, ImageUrlUtils.chatImageFolder);
+            message!.imageId, ImageUrlUtils.chatImageFolder);
       }
 
       await doc.delete();

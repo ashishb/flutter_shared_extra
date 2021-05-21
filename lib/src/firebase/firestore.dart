@@ -43,7 +43,7 @@ class Document {
 
   String get documentId => ref.id;
 
-  Future<T> getData<T>() {
+  Future<T?> getData<T>() {
     return ref.get().then((v) => FirestoreRefs.convert(
           T,
           v.data(),
@@ -210,7 +210,7 @@ class UserData {
     });
   }
 
-  Future<T> getDocument<T>() async {
+  Future<T?> getDocument<T>() async {
     final auth.User? user = authService.currentUser;
 
     if (Utils.isNotEmpty(user?.uid)) {
