@@ -20,7 +20,7 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
     super.initState();
 
     _phoneController = TextEditingController();
-    _phoneController!.text = Preferences.loginPhone!;
+    _phoneController!.text = Preferences.loginPhone ?? '';
   }
 
   @override
