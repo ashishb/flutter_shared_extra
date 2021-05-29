@@ -14,6 +14,7 @@ class FirestoreRefs {
   ) {
     // data is null if you try to get a specific object and it doesn't exist.
     if (data == null) {
+      // this should never happen, it would break null-safety
       return null;
     }
 

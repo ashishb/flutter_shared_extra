@@ -53,7 +53,10 @@ class Document {
   }
 
   Stream<T> streamData<T>() {
-    return ref.snapshots().map((v) => FirestoreRefs.convert(
+    // remove the null values
+    final filter = ref.snapshots().where((v) => v.data() != null);
+
+    return filter.map((v) => FirestoreRefs.convert(
           T,
           v.data(),
           documentId,
