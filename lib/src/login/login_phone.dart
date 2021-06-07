@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:flutter_shared/flutter_shared_web.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 import 'package:provider/provider.dart';
 

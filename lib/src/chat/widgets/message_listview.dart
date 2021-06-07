@@ -4,7 +4,7 @@ import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 import 'package:flutter_shared_extra/src/chat/widgets/avatar_container.dart';
 import 'package:flutter_shared_extra/src/chat/widgets/message_container.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:flutter_shared/flutter_shared_web.dart';
 
 class MessageListView extends StatefulWidget {
   const MessageListView({

@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:flutter_shared/flutter_shared_web.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
 class EditProfileDialog extends StatefulWidget {

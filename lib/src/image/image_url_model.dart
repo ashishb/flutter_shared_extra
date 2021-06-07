@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:flutter_shared/flutter_shared_web.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 import 'package:image/image.dart' as img;
 

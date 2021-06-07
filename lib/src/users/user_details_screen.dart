@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:flutter_shared/flutter_shared_web.dart';
 import 'package:flutter_shared_extra/src/firebase/auth.dart';
 
 class UserDetailsScreen extends StatefulWidget {

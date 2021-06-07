@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:flutter_shared/flutter_shared_web.dart';
 
 class MessageContainer extends StatelessWidget {
   const MessageContainer({

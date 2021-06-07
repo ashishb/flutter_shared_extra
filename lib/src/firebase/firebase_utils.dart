@@ -1,5 +1,5 @@
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:flutter_shared/flutter_shared_web.dart';
 
 class FirebaseUtils {
   static Future<List<Map>?> users({String? nextPageToken}) async {

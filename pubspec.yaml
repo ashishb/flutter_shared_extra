@@ -11,7 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_shared:
+    git: git://github.com/sgehrman/flutter_shared
+  avatar_glow: ^2.0.1
   bubble: ^1.2.1
   cloud_firestore: ^2.0.0
   cloud_functions: ^1.0.4
@@ -19,17 +21,12 @@ dependencies:
   firebase_storage: ^8.0.4
   flutter_keyboard_visibility: ^5.0.1
   flutter_parsed_text: ^2.1.0
-  avatar_glow: ^2.0.1
   google_sign_in: ^5.0.4
   image: ^3.0.1
-  image_picker: ^0.7.5+3
+  image_picker: ^0.8.0+1
   provider: ^5.0.0
-  stream_transform: ^2.0.0
   sign_in_with_apple: ^3.0.0
-
-  flutter_shared:
-    git: git://github.com/sgehrman/flutter_shared
-    # path: ../flutter_shared
+  stream_transform: ^2.0.0
 
 dev_dependencies:
   lint: ^1.5.3
