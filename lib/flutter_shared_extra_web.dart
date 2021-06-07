@@ -1,4 +1,4 @@
-library flutter_shared_extra;
+library flutter_shared_extra_web;
 
 export 'src/chat/chat_models.dart';
 export 'src/chat/chat_screen.dart';
