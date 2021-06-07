@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shared_extra/src/firebase/firebase_user_provider.dart';
 import 'package:flutter_shared_extra/src/profile/profile_editor.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:flutter_shared/flutter_shared_web.dart';
 
 class ProfileWidget extends StatelessWidget {
   Widget _userImageWidget(
@@ -12,7 +12,7 @@ class ProfileWidget extends StatelessWidget {
     Color backColor = Colors.white;
 
     if (userProvider.photoUrl.isNotEmpty) {
-      image = SuperImage(SuperImageSource(url: userProvider.photoUrl));
+      image = Image.network(userProvider.photoUrl);
       backColor = Colors.transparent;
     } else {
       image = const Icon(Icons.person, size: 90, color: Colors.black54);
