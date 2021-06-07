@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/chat/chat_models.dart';
 import 'package:flutter_shared_extra/src/chat/widgets/chat_input.dart';
 import 'package:flutter_shared_extra/src/chat/widgets/message_listview.dart';
 

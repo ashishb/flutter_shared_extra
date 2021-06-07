@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 import 'package:flutter_shared_extra/src/chat/chat_admin_screen_contents.dart';
 import 'package:flutter_shared_extra/src/chat/chat_login_screen.dart';
+import 'package:flutter_shared_extra/src/chat/chat_models.dart';
 import 'package:flutter_shared_extra/src/chat/chat_screen_contents.dart';
+import 'package:flutter_shared_extra/src/firebase/auth.dart';
+import 'package:flutter_shared_extra/src/firebase/firebase_user_provider.dart';
+import 'package:flutter_shared_extra/src/firebase/firestore.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {

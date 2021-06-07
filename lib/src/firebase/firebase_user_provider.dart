@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/firebase/auth.dart';
 
 class FirebaseUserProvider extends ChangeNotifier {
   FirebaseUserProvider() {
@@ -47,7 +47,8 @@ class FirebaseUserProvider extends ChangeNotifier {
   }
 
   Future<void> updateProfile(String displayName, String? photoURL) async {
-    await _user!.updateProfile(displayName: displayName, photoURL: photoURL);
+    await _user!.updatePhotoURL(photoURL);
+    await _user!.updateDisplayName(displayName);
     await reload();
   }
 

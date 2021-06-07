@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/chat/chat_models.dart';
+import 'package:flutter_shared_extra/src/image/image_url_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_shared/flutter_shared_web.dart';
 

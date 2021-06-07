@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shared_extra/src/firebase/firebase_user_provider.dart';
 import 'package:flutter_shared_extra/src/profile/profile_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/firebase/firebase_user_provider.dart';
 import 'package:flutter_shared_extra/src/login/user_login_view.dart';
 import 'package:provider/provider.dart';
 

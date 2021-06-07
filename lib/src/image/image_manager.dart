@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared/flutter_shared_web.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared/flutter_shared.dart';
+import 'package:flutter_shared_extra/src/firebase/firestore.dart';
+import 'package:flutter_shared_extra/src/image/image_delete_dialog.dart';
+import 'package:flutter_shared_extra/src/image/image_upload_dialog.dart';
+import 'package:flutter_shared_extra/src/image/image_url_model.dart';
 
 class ImageManagerScreen extends StatelessWidget {
   final String appBarTitle = 'Images';

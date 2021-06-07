@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter_shared/flutter_shared_web.dart';
+import 'package:flutter_shared_extra/src/firebase/auth.dart';
+import 'package:flutter_shared_extra/src/firebase/firestore_refs.dart';
 import 'package:stream_transform/stream_transform.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
 
 class WhereQuery {
   WhereQuery(this.fromUid, this.toUid);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared_web.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/chat/chat_models.dart';
 
 class AvatarContainer extends StatelessWidget {
   const AvatarContainer({

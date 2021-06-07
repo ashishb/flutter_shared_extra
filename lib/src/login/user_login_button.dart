@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared_web.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/firebase/auth.dart';
 import 'package:flutter_shared_extra/src/login/login_apple.dart';
 import 'package:flutter_shared_extra/src/login/login_email.dart';
 import 'package:flutter_shared_extra/src/login/login_phone.dart';

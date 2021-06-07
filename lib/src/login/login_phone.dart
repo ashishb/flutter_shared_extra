@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_shared/flutter_shared_web.dart';
-import 'package:flutter_shared_extra/flutter_shared_extra.dart';
+import 'package:flutter_shared_extra/src/firebase/auth.dart';
+import 'package:flutter_shared_extra/src/login/phone_verifier.dart';
 import 'package:provider/provider.dart';
 
 class LoginPhoneDialog extends StatefulWidget {
