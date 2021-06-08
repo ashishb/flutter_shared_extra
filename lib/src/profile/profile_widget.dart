@@ -61,8 +61,7 @@ class ProfileWidget extends StatelessWidget {
             Text('admin: ${userProvider.isAdmin}',
                 style: Theme.of(context).textTheme.subtitle1),
             const SizedBox(height: 30),
-            ThemeButton(
-              title: 'Edit',
+            ElevatedButton(
               onPressed: () async {
                 final ProfileData? data =
                     await showEmailEditProfileDialog(context);
@@ -82,6 +81,7 @@ class ProfileWidget extends StatelessWidget {
                   }
                 }
               },
+              child: const Text('Edit'),
             ),
           ],
         ),

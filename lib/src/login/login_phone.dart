@@ -94,8 +94,7 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
         const SizedBox(
           height: 20,
         ),
-        ThemeButton(
-          title: 'Login',
+        ElevatedButton.icon(
           icon: const Icon(Icons.lock_open, size: 16),
           onPressed: () async {
             if (!_phoneVerifier.hasVerificationId) {
@@ -112,6 +111,7 @@ class _LoginPhoneDialogState extends State<LoginPhoneDialog> {
               Navigator.of(context).pop(result);
             }
           },
+          label: const Text('Login'),
         ),
       ],
     );

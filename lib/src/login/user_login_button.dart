@@ -92,10 +92,10 @@ class _UserLoginButtonState extends State<UserLoginButton> {
       );
     }
 
-    return ThemeButton(
+    return ElevatedButton.icon(
       icon: Icon(widget.icon),
       onPressed: _handleOnPressed,
-      title: widget.text,
+      label: Text(widget.text),
     );
   }
 }

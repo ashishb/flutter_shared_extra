@@ -127,8 +127,8 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
         const SizedBox(
           height: 10,
         ),
-        ThemeButton(
-          title: 'Save',
+
+        ElevatedButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
@@ -140,6 +140,7 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
               });
             }
           },
+          child: const Text('Save'),
         ),
       ],
     );

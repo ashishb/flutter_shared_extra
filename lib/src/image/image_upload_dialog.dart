@@ -202,8 +202,7 @@ class _UploadDialogState extends State<UploadDialog> {
         const SizedBox(
           height: 20,
         ),
-        ThemeButton(
-          title: 'Upload',
+        ElevatedButton.icon(
           icon: const Icon(Icons.cloud_upload, size: 16),
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
@@ -217,6 +216,7 @@ class _UploadDialogState extends State<UploadDialog> {
               }
             }
           },
+          label: const Text('Upload'),
         ),
       ],
     );

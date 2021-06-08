@@ -190,10 +190,10 @@ class _LoginDialogState extends State<LoginDialog> {
             ),
           ),
         ),
-        ThemeButton(
-          title: 'Login',
+        ElevatedButton.icon(
           icon: const Icon(Icons.lock_open, size: 16),
           onPressed: _doSubmit,
+          label: const Text('Login'),
         ),
       ],
     );
