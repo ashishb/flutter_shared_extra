@@ -87,7 +87,7 @@ class UserLoginViewState extends State<UserLoginView> {
   Widget build(BuildContext context) {
     return Center(
       child: FocusTraversalGroup(
-        policy: OrderedTraversalPolicy(),
+        policy: WidgetOrderTraversalPolicy(),
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
